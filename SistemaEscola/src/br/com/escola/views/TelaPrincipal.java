@@ -73,6 +73,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menu_cadastro.add(item_coordenador);
 
         item_turma.setText("Turmas");
+        item_turma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_turmaActionPerformed(evt);
+            }
+        });
         menu_cadastro.add(item_turma);
 
         item_curso.setText("Cursos");
@@ -144,6 +149,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void item_alunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_alunosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_item_alunosActionPerformed
+
+    private void item_turmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_turmaActionPerformed
+        new CadastroTurmas().show();
+    }//GEN-LAST:event_item_turmaActionPerformed
 
     /**
      * @param args the command line arguments
