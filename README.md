@@ -1,4 +1,4 @@
-# sistemaEscola
+# Sistema Escola
 Trabalho Laboratório de Computação
 
 Equipe:
