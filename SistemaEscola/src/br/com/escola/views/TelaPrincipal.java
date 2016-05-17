@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.escola.views;
 
 /**
- *
+ * Classe que representa a tela principal 
  * @author ortiz
  */
 public class TelaPrincipal extends javax.swing.JFrame {
@@ -34,12 +29,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menu_principal = new javax.swing.JMenuBar();
         menu_cadastro = new javax.swing.JMenu();
         item_usuario = new javax.swing.JMenuItem();
+        item_alunos = new javax.swing.JMenuItem();
         item_professor = new javax.swing.JMenuItem();
         item_coordenador = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         item_turma = new javax.swing.JMenuItem();
         item_curso = new javax.swing.JMenuItem();
         item_disciplina = new javax.swing.JMenuItem();
-        item_alunos = new javax.swing.JMenuItem();
         menu_consulta = new javax.swing.JMenu();
         menu_matricula = new javax.swing.JMenu();
         menu_configuracao = new javax.swing.JMenu();
@@ -56,8 +52,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel3.setText("Em desenvolvimento");
 
+        menu_cadastro.setMnemonic('c');
         menu_cadastro.setText("Cadastros");
 
+        item_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/multiple-users-silhouette.png"))); // NOI18N
         item_usuario.setText("Usuários");
         item_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,26 +64,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menu_cadastro.add(item_usuario);
 
-        item_professor.setText("Professores");
-        menu_cadastro.add(item_professor);
-
-        item_coordenador.setText("Coordernadores");
-        menu_cadastro.add(item_coordenador);
-
-        item_turma.setText("Turmas");
-        item_turma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                item_turmaActionPerformed(evt);
-            }
-        });
-        menu_cadastro.add(item_turma);
-
-        item_curso.setText("Cursos");
-        menu_cadastro.add(item_curso);
-
-        item_disciplina.setText("Disciplinas");
-        menu_cadastro.add(item_disciplina);
-
+        item_alunos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/graduate-student-avatar.png"))); // NOI18N
         item_alunos.setText("Alunos");
         item_alunos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,14 +73,53 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menu_cadastro.add(item_alunos);
 
+        item_professor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/teacher-writing-on-whiteboard.png"))); // NOI18N
+        item_professor.setText("Professores");
+        item_professor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_professorActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(item_professor);
+
+        item_coordenador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/manager.png"))); // NOI18N
+        item_coordenador.setText("Coordernadores");
+        item_coordenador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_coordenadorActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(item_coordenador);
+        menu_cadastro.add(jSeparator1);
+
+        item_turma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/computer.png"))); // NOI18N
+        item_turma.setText("Turmas");
+        item_turma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_turmaActionPerformed(evt);
+            }
+        });
+        menu_cadastro.add(item_turma);
+
+        item_curso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/write-board.png"))); // NOI18N
+        item_curso.setText("Cursos");
+        menu_cadastro.add(item_curso);
+
+        item_disciplina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/drawing.png"))); // NOI18N
+        item_disciplina.setText("Disciplinas");
+        menu_cadastro.add(item_disciplina);
+
         menu_principal.add(menu_cadastro);
 
+        menu_consulta.setMnemonic('n');
         menu_consulta.setText("Consultas");
         menu_principal.add(menu_consulta);
 
+        menu_matricula.setMnemonic('m');
         menu_matricula.setText("Matrículas");
         menu_principal.add(menu_matricula);
 
+        menu_configuracao.setMnemonic('o');
         menu_configuracao.setText("Configurações");
         menu_principal.add(menu_configuracao);
 
@@ -143,16 +161,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void item_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_usuarioActionPerformed
-        
+        new TelaControleUsuario().show();
     }//GEN-LAST:event_item_usuarioActionPerformed
 
     private void item_alunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_alunosActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_item_alunosActionPerformed
 
     private void item_turmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_turmaActionPerformed
         new CadastroTurmas().show();
     }//GEN-LAST:event_item_turmaActionPerformed
+
+    private void item_coordenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_coordenadorActionPerformed
+        new CadastroCoordenador().show();
+    }//GEN-LAST:event_item_coordenadorActionPerformed
+
+    private void item_professorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_professorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_item_professorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,6 +226,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menu_cadastro;
     private javax.swing.JMenu menu_configuracao;
     private javax.swing.JMenu menu_consulta;
