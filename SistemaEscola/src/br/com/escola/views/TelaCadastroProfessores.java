@@ -47,12 +47,14 @@ public class TelaCadastroProfessores extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         LabelImagem.setBackground(new java.awt.Color(73, 71, 71));
+        LabelImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/no-cameras-sign_1.png"))); // NOI18N
         LabelImagem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         LabelNome.setText("Nome:");
 
         jLabel1.setText("Matrícula:");
 
+        BtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/searching-magnifying-glass.png"))); // NOI18N
         BtnPesquisar.setText("Pesquisar");
 
         jLabel2.setText("Data de Nascimento:");
@@ -61,10 +63,13 @@ public class TelaCadastroProfessores extends javax.swing.JFrame {
 
         LabelTel.setText("Telefone:");
 
+        BtnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/add-new-document.png"))); // NOI18N
         BtnNovo.setText("Novo");
 
+        BtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/notes.png"))); // NOI18N
         BtnAlterar.setText("Alterar");
 
+        BtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/delete.png"))); // NOI18N
         BtnExcluir.setText("Excluir");
 
         javax.swing.GroupLayout LabelMatriculaLayout = new javax.swing.GroupLayout(LabelMatricula);
@@ -72,8 +77,7 @@ public class TelaCadastroProfessores extends javax.swing.JFrame {
         LabelMatriculaLayout.setHorizontalGroup(
             LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LabelMatriculaLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(LabelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LabelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LabelMatriculaLayout.createSequentialGroup()
@@ -85,9 +89,9 @@ public class TelaCadastroProfessores extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addGroup(LabelMatriculaLayout.createSequentialGroup()
                                 .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TxtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(LabelNome))
-                                .addGap(58, 58, 58)
+                                    .addComponent(LabelNome)
+                                    .addComponent(TxtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(42, 42, 42)
                                 .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(BtnPesquisar))))
@@ -96,27 +100,27 @@ public class TelaCadastroProfessores extends javax.swing.JFrame {
             .addGroup(LabelMatriculaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelEmail)
-                    .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TxtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelTel))
+                    .addGroup(LabelMatriculaLayout.createSequentialGroup()
+                        .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LabelEmail)
+                            .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LabelTel)))
+                    .addGroup(LabelMatriculaLayout.createSequentialGroup()
+                        .addComponent(BtnNovo)
+                        .addGap(129, 129, 129)
+                        .addComponent(BtnAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BtnExcluir)))
                 .addContainerGap())
-            .addGroup(LabelMatriculaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BtnNovo)
-                .addGap(56, 56, 56)
-                .addComponent(BtnAlterar)
-                .addGap(56, 56, 56)
-                .addComponent(BtnExcluir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         LabelMatriculaLayout.setVerticalGroup(
             LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LabelMatriculaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(LabelMatriculaLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -131,7 +135,7 @@ public class TelaCadastroProfessores extends javax.swing.JFrame {
                         .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TxtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(LabelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LabelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(31, 31, 31)
                 .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelEmail)
@@ -140,7 +144,7 @@ public class TelaCadastroProfessores extends javax.swing.JFrame {
                 .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TxtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(LabelMatriculaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnNovo)
                     .addComponent(BtnAlterar)
