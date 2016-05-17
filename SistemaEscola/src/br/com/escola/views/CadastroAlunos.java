@@ -150,7 +150,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
                                 .addComponent(jButton1)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(229, 229, 229)
+                .addGap(254, 254, 254)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
