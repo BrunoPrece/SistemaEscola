@@ -188,11 +188,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_item_turmaActionPerformed
 
     private void item_coordenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_coordenadorActionPerformed
-        new CadastroCoordenador().show();
+        new CadastroCoordenadores().show();
     }//GEN-LAST:event_item_coordenadorActionPerformed
 
     private void item_professorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_professorActionPerformed
-        // TODO add your handling code here:
+       new CadastroProfessores().show();
     }//GEN-LAST:event_item_professorActionPerformed
 
     /**
