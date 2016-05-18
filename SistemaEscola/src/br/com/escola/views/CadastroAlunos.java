@@ -18,10 +18,11 @@ import javax.swing.text.MaskFormatter;
  */
 public class CadastroAlunos extends javax.swing.JFrame {
 
+    /* Objetos do tipo MaskFormatter (para inserir máscaras) */
     MaskFormatter formatoDN;
     
     /**
-     * Creates new form CadastroAlunos
+     * Construtor Padrão da Classe.
      */
     public CadastroAlunos() {
         initComponents();

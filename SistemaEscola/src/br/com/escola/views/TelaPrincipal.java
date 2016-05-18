@@ -118,10 +118,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         item_curso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/write-board.png"))); // NOI18N
         item_curso.setText("Cursos");
+        item_curso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_cursoActionPerformed(evt);
+            }
+        });
         menu_cadastro.add(item_curso);
 
         item_disciplina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/drawing.png"))); // NOI18N
         item_disciplina.setText("Disciplinas");
+        item_disciplina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_disciplinaActionPerformed(evt);
+            }
+        });
         menu_cadastro.add(item_disciplina);
 
         menu_principal.add(menu_cadastro);
@@ -194,6 +204,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void item_professorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_professorActionPerformed
        new CadastroProfessores().show();
     }//GEN-LAST:event_item_professorActionPerformed
+
+    private void item_cursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cursoActionPerformed
+        new CadastroTurmas().show();
+    }//GEN-LAST:event_item_cursoActionPerformed
+
+    private void item_disciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_disciplinaActionPerformed
+        new CadastroDisciplinas().show();
+    }//GEN-LAST:event_item_disciplinaActionPerformed
 
     /**
      * @param args the command line arguments
