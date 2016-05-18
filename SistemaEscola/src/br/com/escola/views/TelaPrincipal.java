@@ -12,7 +12,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class TelaPrincipal extends javax.swing.JFrame {
 
     /* Váriavel que armazena um tema padrão */
-    String temaEscolhido = "com.birosoft.liquid.LiquidLookAndFeel";
+    static String temaEscolhido = "com.birosoft.liquid.LiquidLookAndFeel";
     
     
     public TelaPrincipal() {

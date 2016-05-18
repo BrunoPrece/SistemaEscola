@@ -50,51 +50,57 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="LabelCodigo" min="-2" max="-2" attributes="0"/>
-                              <Component id="TxtCodigo" min="-2" pref="73" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="LabelNome" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="LabelCpf" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="TxtNome" min="-2" pref="244" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="TxtCpf" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="TxtLogin" alignment="0" min="-2" pref="223" max="-2" attributes="0"/>
-                                      <Component id="LabelLogin" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="LabelLogin" min="-2" max="-2" attributes="0"/>
+                                      <Component id="TxtLogin" min="-2" pref="155" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="LabelSenha" min="-2" max="-2" attributes="0"/>
-                                      <Component id="TxtSenha" min="-2" pref="238" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="LabelSenha" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="BtnFechar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                                  <Component id="BtnCancelar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="BtnSalvar" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="BtnFechar" linkSize="1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="BtnCancelar" linkSize="1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="BtnSalvar" linkSize="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="49" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="TxtSenha" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="LabelCodigo" max="32767" attributes="0"/>
+                                      <Component id="TxtCodigo" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="TxtNome" alignment="0" min="-2" pref="235" max="-2" attributes="0"/>
+                                      <Component id="LabelNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="LabelCpf" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="TxtCpf" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -102,6 +108,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="LabelCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="LabelNome" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -113,21 +121,21 @@
                       <Component id="TxtNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="TxtCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="LabelLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="LabelSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="TxtLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="TxtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="31" max="32767" attributes="0"/>
+                  <EmptySpace pref="33" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="BtnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="BtnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="BtnFechar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="BtnSalvar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="BtnCancelar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="BtnFechar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
@@ -137,17 +145,17 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="LabelCodigo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
+            <Property name="text" type="java.lang.String" value="C&#xf3;digo.:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="LabelNome">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nome:"/>
+            <Property name="text" type="java.lang.String" value="Nome.:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="LabelCpf">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CPF:"/>
+            <Property name="text" type="java.lang.String" value="CPF.:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TxtCodigo">
@@ -158,12 +166,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="LabelLogin">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Login Acesso:"/>
+            <Property name="text" type="java.lang.String" value="Login Acesso.:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="LabelSenha">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Senha Acesso:"/>
+            <Property name="text" type="java.lang.String" value="Senha Acesso.:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TxtLogin">
@@ -175,7 +183,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/24x24/save.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Salvar"/>
+            <Property name="text" type="java.lang.String" value="SALVAR"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="BtnCancelar">
@@ -183,7 +191,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/24x24/back-arrow.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="text" type="java.lang.String" value="CANCELAR"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="BtnFechar">
@@ -191,7 +199,15 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/24x24/exit.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fechar"/>
+            <Property name="text" type="java.lang.String" value="FECHAR"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cadastro de Usu&#xe1;rios"/>
           </Properties>
         </Component>
       </SubComponents>

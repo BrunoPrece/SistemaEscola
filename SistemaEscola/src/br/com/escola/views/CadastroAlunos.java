@@ -5,6 +5,11 @@
  */
 package br.com.escola.views;
 
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author labinfo
@@ -45,16 +50,16 @@ public class CadastroAlunos extends javax.swing.JFrame {
         txtDataNascimento = new javax.swing.JTextField();
         labelDataNascimento = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        botaoFoto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        tf_foto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de ALunos");
 
         labelFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/32x32/no-cameras-sign_1.png"))); // NOI18N
-        labelFoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelFoto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto.:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
         labelMatricula.setText("Matrícula.:");
 
@@ -84,9 +89,12 @@ public class CadastroAlunos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Cadastro de Alunos");
 
-        jButton1.setText("...");
-
-        jLabel2.setText("Procurar.:");
+        botaoFoto.setText("...");
+        botaoFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoFotoActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -145,9 +153,9 @@ public class CadastroAlunos extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelFoto, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)))))
+                                .addComponent(tf_foto)
+                                .addGap(18, 18, 18)
+                                .addComponent(botaoFoto)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(254, 254, 254)
@@ -195,11 +203,11 @@ public class CadastroAlunos extends javax.swing.JFrame {
                             .addComponent(btnAlterar)
                             .addComponent(btnExcluir)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel2))))
+                            .addComponent(botaoFoto)
+                            .addComponent(tf_foto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                 .addContainerGap())
@@ -209,6 +217,43 @@ public class CadastroAlunos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    /* Método responsável por fazer a troca das fotos. */
+    private void botaoFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFotoActionPerformed
+        /* Essa condição dou créditos a galera do GUJ que me ajudou, o que ela faz, ela simplesmente
+         detecta o sistema operacional que vc esta usando, e armazena em uma variavel diretorio para pesquisa */
+        String diretorio = "";
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            diretorio = "/Users/" + System.getProperty("user.name") + "/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
+                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens";
+            //JOptionPane.showMessageDialog(null, diretorio);
+        } else if (System.getProperty("os.name").startsWith("Linux")) {
+            //no caso do Linux é home
+            diretorio = "/home/" + System.getProperty("user.name") + "/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
+                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens";
+            //JOptionPane.showMessageDialog(null, diretorio);
+        }
+
+        try {
+            /* Seta esse diretório como padrão */
+            JFileChooser buscarFoto = new JFileChooser();
+            //JOptionPane.showMessageDialog(null, "Você deve inserir fotos com tamanho 128 x 128 px tudo bem?");
+
+            buscarFoto.setCurrentDirectory(new File(diretorio));
+            //buscarFoto.setCurrentDirectory(new File("/home/fernando/Estoque/Estoque/Fotos/"));
+            buscarFoto.setDialogTitle("Carregar Imagem do Aluno");
+            buscarFoto.showOpenDialog(this);
+
+            String foto = "" + buscarFoto.getSelectedFile().getName();
+
+            tf_foto.setText(foto);
+            labelFoto.setIcon(new ImageIcon("/home/ortiz/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
+                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + tf_foto.getText()));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível inserir uma foto");
+        }
+    }//GEN-LAST:event_botaoFotoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,14 +291,13 @@ public class CadastroAlunos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoFoto;
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JComboBox<String> cb_Curso;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelCurso;
@@ -263,6 +307,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
     private javax.swing.JLabel labelMatricula;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelTelefone;
+    private javax.swing.JTextField tf_foto;
     private javax.swing.JTextField txtDataNascimento;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMatricula;
