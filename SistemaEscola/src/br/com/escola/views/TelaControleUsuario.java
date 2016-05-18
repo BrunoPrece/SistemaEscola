@@ -1,12 +1,16 @@
 
 package br.com.escola.views;
 
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
+
 /**
  *
  * @author bruno
  */
 public class TelaControleUsuario extends javax.swing.JFrame {
-
+ MaskFormatter formatoCPF;
     /**
      * Creates new form TelaControleUsuario
      */
@@ -29,7 +33,12 @@ public class TelaControleUsuario extends javax.swing.JFrame {
         LabelCpf = new javax.swing.JLabel();
         TxtCodigo = new javax.swing.JTextField();
         TxtNome = new javax.swing.JTextField();
-        TxtCpf = new javax.swing.JTextField();
+        try {
+            formatoCPF = new MaskFormatter("###.###.###-##");
+        } catch(Exception erro) {
+            JOptionPane.showMessageDialog(null, "Não foi possível inserir uma máscara" + erro);
+        }
+        TxtCpf = new JFormattedTextField(formatoCPF);
         LabelLogin = new javax.swing.JLabel();
         LabelSenha = new javax.swing.JLabel();
         TxtLogin = new javax.swing.JTextField();

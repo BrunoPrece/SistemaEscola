@@ -163,6 +163,10 @@
         <Component class="javax.swing.JTextField" name="TxtNome">
         </Component>
         <Component class="javax.swing.JTextField" name="TxtCpf">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(formatoCPF);"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try {         &#xa;    formatoCPF = new MaskFormatter(&quot;###.###.###-##&quot;);     &#xa;    } catch(Exception erro) {         &#xa;JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi poss&#xed;vel inserir uma m&#xe1;scara&quot; + erro); &#xa;    } "/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="LabelLogin">
           <Properties>

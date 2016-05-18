@@ -8,13 +8,17 @@ package br.com.escola.views;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
  * @author labinfo
  */
 public class CadastroCoordenadores extends javax.swing.JFrame {
+
+    MaskFormatter formatoDN ;
 
     /**
      * Creates new form CadastroAlunos
@@ -47,7 +51,12 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         cb_Curso = new javax.swing.JComboBox<>();
-        txtDataNascimento = new javax.swing.JTextField();
+        try {
+            formatoDN = new MaskFormatter("##/##/####");
+        } catch(Exception erro) {
+            JOptionPane.showMessageDialog(null, "Não foi possível inserir uma máscara" + erro);
+        }
+        javax.swing.JTextField txtDataNascimento = new JFormattedTextField(formatoDN);
         labelDataNascimento = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         botaoFoto = new javax.swing.JButton();
@@ -308,7 +317,6 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelTelefone;
     private javax.swing.JTextField tf_foto;
-    private javax.swing.JTextField txtDataNascimento;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtNome;
