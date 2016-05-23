@@ -5,6 +5,8 @@
  */
 package br.com.escola.views;
 
+import javax.swing.JPasswordField;
+
 /**
  *
  * @author labinfo
@@ -30,7 +32,7 @@ public class TelaLogin extends javax.swing.JFrame {
         labelUsuario = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         labelSenha = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JTextField();
+        txtSenha =  new JPasswordField();
         btnAcessar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         labelFoto = new javax.swing.JLabel();
@@ -69,7 +71,7 @@ public class TelaLogin extends javax.swing.JFrame {
                         .addComponent(btnCancelar))
                     .addComponent(labelSenha)
                     .addComponent(labelUsuario)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                    .addComponent(txtUsuario)
                     .addComponent(txtSenha))
                 .addGap(23, 23, 23))
         );

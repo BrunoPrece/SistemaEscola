@@ -19,6 +19,7 @@ import javax.swing.text.MaskFormatter;
 public class CadastroCoordenadores extends javax.swing.JFrame {
 
     MaskFormatter formatoDN ;
+    MaskFormatter formatoTel;
 
     /**
      * Creates new form CadastroAlunos
@@ -45,7 +46,12 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         labelEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         labelTelefone = new javax.swing.JLabel();
-        txtTelefone = new javax.swing.JTextField();
+        try {
+            formatoTel = new MaskFormatter("(##)####-####");
+        } catch(Exception erro) {
+            JOptionPane.showMessageDialog(null, "Não foi possível inserir uma máscara" + erro);
+        }
+        txtTelefone = new JFormattedTextField(formatoTel);
         labelCurso = new javax.swing.JLabel();
         btnNovo = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();

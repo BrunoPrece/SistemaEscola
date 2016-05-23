@@ -36,7 +36,7 @@
                   </Group>
                   <Component id="labelSenha" min="-2" max="-2" attributes="0"/>
                   <Component id="labelUsuario" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtUsuario" pref="237" max="32767" attributes="0"/>
+                  <Component id="txtUsuario" max="32767" attributes="0"/>
                   <Component id="txtSenha" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
@@ -86,6 +86,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtSenha">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value=" new JPasswordField();"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btnAcessar">
       <Properties>

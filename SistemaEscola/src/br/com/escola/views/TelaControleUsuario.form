@@ -181,6 +181,9 @@
         <Component class="javax.swing.JTextField" name="TxtLogin">
         </Component>
         <Component class="javax.swing.JTextField" name="TxtSenha">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JPasswordField();"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="BtnSalvar">
           <Properties>
@@ -205,6 +208,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="FECHAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnFecharActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>

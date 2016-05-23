@@ -20,6 +20,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
 
     /* Objetos do tipo MaskFormatter (para inserir máscaras) */
     MaskFormatter formatoDN;
+    MaskFormatter formatoTel;
     
     /**
      * Construtor Padrão da Classe.
@@ -46,7 +47,12 @@ public class CadastroAlunos extends javax.swing.JFrame {
         labelEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         labelTelefone = new javax.swing.JLabel();
-        txtTelefone = new javax.swing.JTextField();
+        try {
+            formatoTel = new MaskFormatter("(##)####-####");
+        } catch(Exception erro) {
+            JOptionPane.showMessageDialog(null, "Não foi possível inserir uma máscara" + erro);
+        }
+        txtTelefone = new JFormattedTextField(formatoTel);
         labelCurso = new javax.swing.JLabel();
         btnNovo = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();

@@ -3,6 +3,7 @@ package br.com.escola.views;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -42,7 +43,7 @@ public class TelaControleUsuario extends javax.swing.JFrame {
         LabelLogin = new javax.swing.JLabel();
         LabelSenha = new javax.swing.JLabel();
         TxtLogin = new javax.swing.JTextField();
-        TxtSenha = new javax.swing.JTextField();
+        TxtSenha = new JPasswordField();
         BtnSalvar = new javax.swing.JButton();
         BtnCancelar = new javax.swing.JButton();
         BtnFechar = new javax.swing.JButton();
@@ -69,6 +70,11 @@ public class TelaControleUsuario extends javax.swing.JFrame {
 
         BtnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/exit.png"))); // NOI18N
         BtnFechar.setText("FECHAR");
+        BtnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnFecharActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Cadastro de Usuários");
@@ -173,6 +179,10 @@ public class TelaControleUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_BtnFecharActionPerformed
 
     /**
      * @param args the command line arguments
