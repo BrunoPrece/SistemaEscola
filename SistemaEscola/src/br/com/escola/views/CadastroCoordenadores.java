@@ -262,7 +262,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
             String foto = "" + buscarFoto.getSelectedFile().getName();
 
             tf_foto.setText(foto);
-            labelFoto.setIcon(new ImageIcon("/home/ortiz/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
+            labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
                     + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + tf_foto.getText()));
 
         } catch (Exception e) {
