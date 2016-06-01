@@ -5,7 +5,11 @@
  */
 package br.com.escola.views;
 
+import br.com.escola.entity.Professor;
+import br.com.escola.utils.JpaUtils;
 import java.io.File;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
@@ -20,6 +24,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
 
     MaskFormatter formatoDN;
     MaskFormatter formatoTel;
+
     /**
      * Creates new form CadastroAlunos
      */
@@ -66,6 +71,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         tf_foto = new javax.swing.JTextField();
+        btnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de ALunos");
@@ -91,6 +97,11 @@ public class CadastroProfessores extends javax.swing.JFrame {
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/delete.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         labelDataNascimento.setText("Data Nascimento.:");
 
@@ -116,6 +127,14 @@ public class CadastroProfessores extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/delete.png"))); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,7 +170,9 @@ public class CadastroProfessores extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnAlterar)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnExcluir)))
+                                .addComponent(btnExcluir)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSalvar)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelFoto, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -201,7 +222,8 @@ public class CadastroProfessores extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnNovo)
                             .addComponent(btnAlterar)
-                            .addComponent(btnExcluir)))
+                            .addComponent(btnExcluir)
+                            .addComponent(btnSalvar)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -256,6 +278,52 @@ public class CadastroProfessores extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoFotoActionPerformed
 
     /**
+     * Método responsável por persistir informações no banco
+     */
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        
+        /* Obtendo uma EntityManager da classe JpaUtils */
+        EntityManager manager = JpaUtils.getEntityManager();
+
+        /* Inicializando uma nova transação */
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+
+        /* Criando um novo Professor */
+        Professor professor = new Professor();
+      
+        professor.setId(0);
+        professor.setNome(txtNome.getText());
+        professor.setEmail(txtEmail.getText());
+        professor.setDataNasc(txtDataNascimento.getText());
+        professor.setTelefone(txtTelefone.getText());
+        professor.setFoto(tf_foto.getText());
+        
+        /* Isso faz com que o JPA insira o objeto no banco de dados */
+        manager.persist(professor);
+        /* Fazendo um commit da transação */
+        tx.commit();
+        /* Fechando o EntityManager */
+        manager.close();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        EntityManager manager = JpaUtils.getEntityManager();
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+        
+        /* Primeiro busca o Professor */
+        Professor professor = manager.find(Professor.class, 1L);
+        
+        /* Remove o veículo passado como parametro */
+        manager.remove(professor);
+        
+        tx.commit();
+        manager.close();
+        JpaUtils.getEntityManager().close();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -296,6 +364,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
