@@ -23,7 +23,7 @@ import javax.swing.text.MaskFormatter;
  * @author labinfo
  */
 public class CadastroProfessores extends javax.swing.JFrame {
-
+    
     MaskFormatter formatoDN;
     MaskFormatter formatoTel;
     
@@ -38,48 +38,64 @@ public class CadastroProfessores extends javax.swing.JFrame {
         tf_foto.setVisible(false);
         mostrarInformacoes();
     }
-    
+
     /* Método para limpar os campos. */
-    private void limparCampos(){
-                
-        /* setando o proximo valor a ser inserido na matrícula */
-        txtMatricula.setText(Integer.toString(id_professor));
+    private void limparCampos() {
         txtDataNascimento.setText("");
         txtEmail.setText("");
         txtNome.setText("");
         tf_foto.setText("");
         txtTelefone.setText("");
-   }
+        labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
+                + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/32x32/no-cameras-sign_1.png"));
+    }
+
+    /* Métodos que ativam, e desativam os botões */
+    private void ativarBotoes() {
+        btnNovo.setEnabled(true);
+        btnAlterar.setEnabled(true);
+        btnExcluir.setEnabled(true);
+        btnSalvar.setEnabled(true);
+    }
     
+    private void desativaBotoes() {
+        btnNovo.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        btnSalvar.setEnabled(false);
+    }
+
     /**
      * Método que mostra as informações (a última) presente no banco de dados.
      */
-    private void mostrarInformacoes(){
-       EntityManager manager = JpaUtils.getEntityManager();
-       
-       /* Criamos uma query JPQL e armazenamos em uma váriavel query do tipo Query. */
+    private void mostrarInformacoes() {
+        EntityManager manager = JpaUtils.getEntityManager();
+
+        /* Criamos uma query JPQL e armazenamos em uma váriavel query do tipo Query. */
         Query query = manager.createQuery("from Professor");
-        
+
         /* Depois executamos o método getResultList() do objeto query e obtemos os
            professores e armazenamos em uma lista de professores. */
         List<Professor> professores = query.getResultList();
-        
+
         /* Laço utilizado para listar os professores que estão presentes na lista. */
         for (Professor professor : professores) {
-           txtNome.setText(professor.getNome());
-           txtDataNascimento.setText(professor.getDataNasc());
-           txtEmail.setText(professor.getEmail());
-           txtMatricula.setText(Integer.toString(professor.getId()));
-           tf_foto.setText(professor.getFoto());
-           txtTelefone.setText(professor.getTelefone());
+            txtNome.setText(professor.getNome());
+            txtDataNascimento.setText(professor.getDataNasc());
+            txtEmail.setText(professor.getEmail());
+            txtMatricula.setText(Integer.toString(professor.getId()));
+            tf_foto.setText(professor.getFoto());
+            txtTelefone.setText(professor.getTelefone());
+            labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
+                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + professor.getFoto()));
         }
-        
+
         /* Fechando as conexões */
         manager.close();
         JpaUtils.getEntityManager().close();
         
     }
-   
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -321,17 +337,18 @@ public class CadastroProfessores extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(painel_botoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(painel_botoesControle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(painel_informacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(labelFoto))
-                            .addComponent(painel_tabela, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(painel_tabela, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(painel_botoesControle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(painel_botoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(207, 207, 207)
                 .addComponent(jLabel1)
@@ -361,12 +378,11 @@ public class CadastroProfessores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   
     /**
      * Método responsável por persistir informações no banco
      */
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
+
         /* Obtendo uma EntityManager da classe JpaUtils */
         EntityManager manager = JpaUtils.getEntityManager();
 
@@ -376,14 +392,14 @@ public class CadastroProfessores extends javax.swing.JFrame {
 
         /* Criando um novo Professor */
         Professor professor = new Professor();
-      
+        
         professor.setId(0);
         professor.setNome(txtNome.getText());
         professor.setEmail(txtEmail.getText());
         professor.setDataNasc(txtDataNascimento.getText());
         professor.setTelefone(txtTelefone.getText());
         professor.setFoto(tf_foto.getText());
-        
+
         /* Isso faz com que o JPA insira o objeto no banco de dados */
         manager.persist(professor);
         /* Fazendo um commit da transação */
@@ -391,19 +407,22 @@ public class CadastroProfessores extends javax.swing.JFrame {
         /* Fechando o EntityManager */
         manager.close();
         
-        JOptionPane.showMessageDialog(null, "Inserido com Sucesso!");
+        JOptionPane.showMessageDialog(null, professor.getNome() + " Inserido com Sucesso!");
         id_professor = professor.getId() + 1;
         limparCampos();
+        ativarBotoes();
+        btnSalvar.setEnabled(false);
+        mostrarInformacoes();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         EntityManager manager = JpaUtils.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
-        
+
         /* Primeiro busca o Professor */
-        Professor professor = manager.find(Professor.class, 1L);
-        
+        Professor professor = manager.find(Professor.class, Integer.parseInt(txtMatricula.getText()));
+
         /* Remove o veículo passado como parametro */
         manager.remove(professor);
         
@@ -412,7 +431,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
         JpaUtils.getEntityManager().close();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-     /* Método responsável por fazer a troca das fotos. */
+    /* Método responsável por fazer a troca das fotos. */
     private void labelFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoMouseClicked
         /* Essa condição dou créditos a galera do GUJ que me ajudou, o que ela faz, ela simplesmente
          detecta o sistema operacional que vc esta usando, e armazena em uma variavel diretorio para pesquisa */
@@ -427,7 +446,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
                     + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens";
             //JOptionPane.showMessageDialog(null, diretorio);
         }
-
+        
         try {
             /* Seta esse diretório como padrão */
             JFileChooser buscarFoto = new JFileChooser();
@@ -437,13 +456,13 @@ public class CadastroProfessores extends javax.swing.JFrame {
             //buscarFoto.setCurrentDirectory(new File("/home/fernando/Estoque/Estoque/Fotos/"));
             buscarFoto.setDialogTitle("Carregar Imagem do Aluno");
             buscarFoto.showOpenDialog(this);
-
+            
             String foto = "" + buscarFoto.getSelectedFile().getName();
-
+            
             tf_foto.setText(foto);
             labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
                     + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + tf_foto.getText()));
-
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possível inserir uma foto");
         }
@@ -451,6 +470,8 @@ public class CadastroProfessores extends javax.swing.JFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         limparCampos();
+        desativaBotoes();
+        btnSalvar.setEnabled(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     /**
