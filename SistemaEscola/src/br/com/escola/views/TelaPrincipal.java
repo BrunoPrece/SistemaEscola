@@ -1,37 +1,38 @@
 package br.com.escola.views;
 
-import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaSkyMetallicLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
-import java.text.ParseException;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * Classe que representa a tela principal
- *
+ * Classe que representa a tela principal 
  * @author ortiz
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
+    /* Váriavel que armazena um tema padrão */
+    static String temaEscolhido = "com.birosoft.liquid.LiquidLookAndFeel";
+    
+    
     public TelaPrincipal() {
         initComponents();
-
-        /* chamada ao método para alterar o tema */
-        temaPadrao();
-        
+        /* chamada ao método*/
+        temas();
     }
 
-    /* Tema padrão, nesse caso ele vai setar como padrão o ambiente que o sistema esta
-        mas vamos mudar, isso é provisório */
-    private void temaPadrao() {
+    /*
+        Método responsável por inserir e tratar os temas gráficos do ambiente.
+    */
+    private void temas(){
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(temaEscolhido);
+            SwingUtilities.updateComponentTreeUI(this);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            JOptionPane.showMessageDialog(null,"Impossível carregar tema" +e);
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,9 +54,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menu_consulta = new javax.swing.JMenu();
         menu_matricula = new javax.swing.JMenu();
         menu_configuracao = new javax.swing.JMenu();
-        menu_temas = new javax.swing.JMenu();
-        alu_oxide = new javax.swing.JMenuItem();
-        sky_metallic = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
@@ -148,28 +146,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menu_configuracao.setMnemonic('o');
         menu_configuracao.setText("Configurações");
-
-        menu_temas.setIcon(new javax.swing.ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/sistemaEscola/SistemaEscola/Imagens/32x32/paint-pallete-with-paint-brush(1).png")); // NOI18N
-        menu_temas.setText("Temas");
-
-        alu_oxide.setText("Synthetica AluOxide");
-        alu_oxide.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alu_oxideActionPerformed(evt);
-            }
-        });
-        menu_temas.add(alu_oxide);
-
-        sky_metallic.setText("Synthetica SkyMetallic");
-        sky_metallic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sky_metallicActionPerformed(evt);
-            }
-        });
-        menu_temas.add(sky_metallic);
-
-        menu_configuracao.add(menu_temas);
-
         menu_principal.add(menu_configuracao);
 
         setJMenuBar(menu_principal);
@@ -209,53 +185,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void item_usuarioActionPerformed(java.awt.event.ActionEvent evt) {
+    private void item_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_usuarioActionPerformed
         new TelaControleUsuario().show();
-    }
+    }//GEN-LAST:event_item_usuarioActionPerformed
 
-    private void item_alunosActionPerformed(java.awt.event.ActionEvent evt) {
+    private void item_alunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_alunosActionPerformed
         new CadastroAlunos().show();
-    }
+    }//GEN-LAST:event_item_alunosActionPerformed
 
-    private void item_turmaActionPerformed(java.awt.event.ActionEvent evt) {
+    private void item_turmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_turmaActionPerformed
         new CadastroTurmas().show();
-    }
-    private void item_coordenadorActionPerformed(java.awt.event.ActionEvent evt) {
+    }//GEN-LAST:event_item_turmaActionPerformed
+
+    private void item_coordenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_coordenadorActionPerformed
         new CadastroCoordenadores().show();
-    }
+    }//GEN-LAST:event_item_coordenadorActionPerformed
 
-    private void item_professorActionPerformed(java.awt.event.ActionEvent evt) {
-    }
+    private void item_professorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_professorActionPerformed
+       new CadastroProfessores().show();
+    }//GEN-LAST:event_item_professorActionPerformed
 
-    private void item_cursoActionPerformed(java.awt.event.ActionEvent evt) {
+    private void item_cursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cursoActionPerformed
         new CadastroTurmas().show();
-    }
+    }//GEN-LAST:event_item_cursoActionPerformed
 
-    private void item_disciplinaActionPerformed(java.awt.event.ActionEvent evt) {
+    private void item_disciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_disciplinaActionPerformed
         new CadastroDisciplinas().show();
-    }
-
-    private void alu_oxideActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
-            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
-            SwingUtilities.updateComponentTreeUI(this);
-        } catch (ParseException | UnsupportedLookAndFeelException e) {
-
-        }
-        
-    }
-
-    private void sky_metallicActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
-            UIManager.setLookAndFeel(new SyntheticaSkyMetallicLookAndFeel());
-            SwingUtilities.updateComponentTreeUI(this);
-        } catch (ParseException | UnsupportedLookAndFeelException e) {
-
-        }
-        
-    }
+    }//GEN-LAST:event_item_disciplinaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,7 +249,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem alu_oxide;
     private javax.swing.JMenuItem item_alunos;
     private javax.swing.JMenuItem item_coordenador;
     private javax.swing.JMenuItem item_curso;
@@ -310,8 +265,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menu_consulta;
     private javax.swing.JMenu menu_matricula;
     private javax.swing.JMenuBar menu_principal;
-    private javax.swing.JMenu menu_temas;
     private javax.swing.JSeparator separador;
-    private javax.swing.JMenuItem sky_metallic;
     // End of variables declaration//GEN-END:variables
 }
