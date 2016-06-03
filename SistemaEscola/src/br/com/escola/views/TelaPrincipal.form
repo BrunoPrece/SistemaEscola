@@ -108,6 +108,34 @@
             <Property name="mnemonic" type="int" value="111"/>
             <Property name="text" type="java.lang.String" value="Configura&#xe7;&#xf5;es"/>
           </Properties>
+          <SubComponents>
+            <Menu class="javax.swing.JMenu" name="menu_temas">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/fernando/Dropbox/FACULDADE/3&#xba; ANO/LABORAT&#xd3;RIO DE COMPUTA&#xc7;&#xc3;O III/2&#xba; BIMESTRE/sistemaEscola/SistemaEscola/Imagens/32x32/paint-pallete-with-paint-brush.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Temas"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="blue_moon">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Synthetica BlueMoon"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="blue_moonActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="black_moon">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Synthetica BlackMoon"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="black_moonActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

@@ -1,38 +1,39 @@
 package br.com.escola.views;
 
-import javax.swing.JOptionPane;
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaSkyMetallicLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * Classe que representa a tela principal 
+ * Classe que representa a tela principal
+ *
  * @author ortiz
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    /* Váriavel que armazena um tema padrão */
-    static String temaEscolhido = "com.birosoft.liquid.LiquidLookAndFeel";
-    
-    
     public TelaPrincipal() {
         initComponents();
+
         /* chamada ao método*/
-        temas();
+        temaPadrao();
     }
 
-    /*
-        Método responsável por inserir e tratar os temas gráficos do ambiente.
-    */
-    private void temas(){
+    /* Tema padrão, nesse caso ele vai setar como padrão o ambiente que o sistema esta
+        mas vamos mudar, isso é provisório */
+    private void temaPadrao() {
         try {
-            UIManager.setLookAndFeel(temaEscolhido);
-            SwingUtilities.updateComponentTreeUI(this);
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            JOptionPane.showMessageDialog(null,"Impossível carregar tema" +e);
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -54,6 +55,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menu_consulta = new javax.swing.JMenu();
         menu_matricula = new javax.swing.JMenu();
         menu_configuracao = new javax.swing.JMenu();
+        menu_temas = new javax.swing.JMenu();
+        blue_moon = new javax.swing.JMenuItem();
+        black_moon = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
@@ -146,6 +150,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menu_configuracao.setMnemonic('o');
         menu_configuracao.setText("Configurações");
+
+        menu_temas.setIcon(new javax.swing.ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/sistemaEscola/SistemaEscola/Imagens/32x32/paint-pallete-with-paint-brush.png")); // NOI18N
+        menu_temas.setText("Temas");
+
+        blue_moon.setText("Synthetica BlueMoon");
+        blue_moon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                blue_moonActionPerformed(evt);
+            }
+        });
+        menu_temas.add(blue_moon);
+
+        black_moon.setText("Synthetica BlackMoon");
+        black_moon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                black_moonActionPerformed(evt);
+            }
+        });
+        menu_temas.add(black_moon);
+
+        menu_configuracao.add(menu_temas);
+
         menu_principal.add(menu_configuracao);
 
         setJMenuBar(menu_principal);
@@ -202,7 +228,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_item_coordenadorActionPerformed
 
     private void item_professorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_professorActionPerformed
-       new CadastroProfessores().show();
+        new CadastroProfessores().show();
     }//GEN-LAST:event_item_professorActionPerformed
 
     private void item_cursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cursoActionPerformed
@@ -212,6 +238,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void item_disciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_disciplinaActionPerformed
         new CadastroDisciplinas().show();
     }//GEN-LAST:event_item_disciplinaActionPerformed
+
+    private void black_moonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_black_moonActionPerformed
+        try {
+            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+            UIManager.setLookAndFeel(new SyntheticaSkyMetallicLookAndFeel());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (ParseException | UnsupportedLookAndFeelException e) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, e);
+
+        }
+
+    }//GEN-LAST:event_black_moonActionPerformed
+
+    private void blue_moonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blue_moonActionPerformed
+        try {
+            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (UnsupportedLookAndFeelException | ParseException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_blue_moonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,6 +298,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem black_moon;
+    private javax.swing.JMenuItem blue_moon;
     private javax.swing.JMenuItem item_alunos;
     private javax.swing.JMenuItem item_coordenador;
     private javax.swing.JMenuItem item_curso;
@@ -265,6 +316,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menu_consulta;
     private javax.swing.JMenu menu_matricula;
     private javax.swing.JMenuBar menu_principal;
+    private javax.swing.JMenu menu_temas;
     private javax.swing.JSeparator separador;
     // End of variables declaration//GEN-END:variables
 }
