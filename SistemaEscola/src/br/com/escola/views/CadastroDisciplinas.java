@@ -5,11 +5,23 @@
  */
 package br.com.escola.views;
 
+import br.com.escola.entity.Disciplina;
+import br.com.escola.entity.Professor;
+import br.com.escola.utils.JpaUtils;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ortiz
  */
 public class CadastroDisciplinas extends javax.swing.JFrame {
+    
+    private static int id_disciplina;
 
     /**
      * Creates new form CadastroTurmas
@@ -48,7 +60,7 @@ public class CadastroDisciplinas extends javax.swing.JFrame {
         btn_novo = new javax.swing.JButton();
         btn_alterar = new javax.swing.JButton();
         btn_excluir = new javax.swing.JButton();
-        btn_excluir1 = new javax.swing.JButton();
+        btn_salvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro Turmas");
@@ -157,8 +169,13 @@ public class CadastroDisciplinas extends javax.swing.JFrame {
         btn_excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/delete.png"))); // NOI18N
         btn_excluir.setText("EXCLUIR");
 
-        btn_excluir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/delete.png"))); // NOI18N
-        btn_excluir1.setText("SALVAR");
+        btn_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/delete.png"))); // NOI18N
+        btn_salvar.setText("SALVAR");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painel_botoesLayout = new javax.swing.GroupLayout(painel_botoes);
         painel_botoes.setLayout(painel_botoesLayout);
@@ -172,7 +189,7 @@ public class CadastroDisciplinas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_excluir)
                 .addGap(18, 18, 18)
-                .addComponent(btn_excluir1)
+                .addComponent(btn_salvar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -186,7 +203,7 @@ public class CadastroDisciplinas extends javax.swing.JFrame {
                     .addComponent(btn_novo)
                     .addComponent(btn_alterar)
                     .addComponent(btn_excluir)
-                    .addComponent(btn_excluir1))
+                    .addComponent(btn_salvar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -212,7 +229,7 @@ public class CadastroDisciplinas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel7)))
-                .addGap(0, 177, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,6 +249,66 @@ public class CadastroDisciplinas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    
+    private void limparCampos(){
+        
+    }
+    
+    private void mostrarInformacoes(){
+        
+    }
+    
+     /* Métodos que ativam, e desativam os botões */
+    private void ativarBotoes() {
+        btn_novo.setEnabled(true);
+        btn_alterar.setEnabled(true);
+        btn_excluir.setEnabled(true);
+        btn_salvar.setEnabled(true);
+    }
+
+    private void desativaBotoes() {
+        btn_novo.setEnabled(false);
+        btn_alterar.setEnabled(false);
+        btn_excluir.setEnabled(false);
+        btn_salvar.setEnabled(false);
+    }
+    
+    private void popularComboBox(){
+       
+        
+    }
+    
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+       
+        /* Obtendo uma EntityManager da classe JpaUtils */
+        EntityManager manager = JpaUtils.getEntityManager();
+
+        /* Inicializando uma nova transação */
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+
+        /* Criando uma nova Disciplina */
+        Disciplina disciplina = new Disciplina();
+
+        disciplina.setCodTurma(0);
+        disciplina.setNome(tf_disciplina.getText());
+        disciplina.setCargaHoraria(tf_carga_horaria.getText());
+        
+        /* Isso faz com que o JPA insira o objeto no banco de dados */
+        manager.persist(disciplina);
+        /* Fazendo um commit da transação */
+        tx.commit();
+        /* Fechando o EntityManager */
+        manager.close();
+
+        JOptionPane.showMessageDialog(null, disciplina.getNome() + " Inserido com Sucesso!");
+        id_disciplina = disciplina.getCodTurma()+ 1;
+        limparCampos();
+        ativarBotoes();
+        btn_salvar.setEnabled(false);
+        mostrarInformacoes();
+    }//GEN-LAST:event_btn_salvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,8 +348,8 @@ public class CadastroDisciplinas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_alterar;
     private javax.swing.JButton btn_excluir;
-    private javax.swing.JButton btn_excluir1;
     private javax.swing.JButton btn_novo;
+    private javax.swing.JButton btn_salvar;
     private javax.swing.JComboBox<String> cb_aluno;
     private javax.swing.JComboBox<String> cb_professor;
     private javax.swing.JComboBox<String> cb_turma;

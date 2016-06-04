@@ -85,10 +85,12 @@ public class CadastroAlunos extends javax.swing.JFrame {
            alunos e armazenamos em uma lista de alunos. */
         alunos = query.getResultList();
 
+
         /* Laço utilizado para listar os alunos que estão presentes na lista. */
         if (!alunos.isEmpty()) {
             setCampos(alunos.get(alunos.size() - 1));
         }
+
         /* Fechando as conexões */
         manager.close();
         JpaUtils.getEntityManager().close();
@@ -422,6 +424,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
         mostrarInformacoes();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         EntityManager manager = JpaUtils.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
@@ -479,10 +482,13 @@ public class CadastroAlunos extends javax.swing.JFrame {
         btnSalvar.setEnabled(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    /* Método que seleciona a linha ao clicar na tabela */
     private void tableAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAlunoMouseClicked
+        /* armazena a linha seleciona na tabela*/
         int line = tableAluno.getSelectedRow();
+        /* pega o id que esta na coluna */
         int id = Integer.parseInt(tableAluno.getValueAt(line, 0).toString());
-
+        /* Percorre a lista de alunos e verifica qual aluno tem o id clicado */
         for (Aluno aluno : alunos) {
             if (id == aluno.getId()) {
                 setCampos(aluno);
@@ -514,7 +520,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
         tx.commit();
         manager.close();
         setModelTable();
-    }//GEN-LAST:event_btnAlterarActionPerformed
+    }                                          
 
     public void setCampos(Aluno aluno) {
         txtNome.setText(aluno.getNome());
@@ -524,7 +530,11 @@ public class CadastroAlunos extends javax.swing.JFrame {
         tf_foto.setText(aluno.getFoto());
         txtTelefone.setText(aluno.getTelefone());
         labelFoto.setIcon(new ImageIcon("/home/bruno/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens/" + aluno.getFoto()));
-    }
+        setModelTable();
+        JOptionPane.showMessageDialog(null, " Alterado com Sucesso!");
+ 
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -588,6 +598,9 @@ public class CadastroAlunos extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Classe responsável por ler as linhas e colunas clicadas
+     */
     class ColumnHeaderListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent evt) {

@@ -46,7 +46,7 @@
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="0" pref="177" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -269,7 +269,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btn_excluir" linkSize="1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btn_excluir1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_salvar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -282,7 +282,7 @@
                       <Component id="btn_novo" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btn_alterar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btn_excluir" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btn_excluir1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_salvar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -314,13 +314,16 @@
             <Property name="text" type="java.lang.String" value="EXCLUIR"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_excluir1">
+        <Component class="javax.swing.JButton" name="btn_salvar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/24x24/delete.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="SALVAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_salvarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
