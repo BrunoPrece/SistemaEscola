@@ -83,7 +83,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
 
         /* Depois executamos o método getResultList() do objeto query e obtemos os
            coordenadores e armazenamos em uma lista de coordenadores. */
-        List<Coordenador> coordenadores = query.getResultList();
+        coordenadores = query.getResultList();
 
         /* Laço utilizado para listar os coordenadores que estão presentes na lista. */
         if (!coordenadores.isEmpty()) {
@@ -249,9 +249,9 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
 
         cb_curso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cb_professor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cb_professorMouseClicked(evt);
+        cb_professor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_professorActionPerformed(evt);
             }
         });
 
@@ -421,16 +421,14 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
 
         /* Criando um novo Coordenador */
         Coordenador coordenador = new Coordenador();
-       
+
         coordenador.setId(0);
         coordenador.setNome(txtNome.getText());
         coordenador.setEmail(txtEmail.getText());
         coordenador.setDataNascimento(txtDataNascimento.getText());
         coordenador.setTelefone(txtTelefone.getText());
         coordenador.setFoto(tf_foto.getText());
-        
 
-        
         /* Isso faz com que o JPA insira o objeto no banco de dados */
         manager.persist(coordenador);
         /* Fazendo um commit da transação */
@@ -545,7 +543,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tableCoordenadorMouseClicked
 
-    private void cb_professorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_professorMouseClicked
+    private void cb_professorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_professorActionPerformed
         EntityManager manager = JpaUtils.getEntityManager();
 
         /* Criamos uma query JPQL e armazenamos em uma váriavel query do tipo Query. */
@@ -557,15 +555,15 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
 
         DefaultComboBoxModel model = new DefaultComboBoxModel(); //declaro um objeto para adicionar a lista
 
-        for (Professor objeto : professores) { //crio um looping para popular o objeto, no caso os alunos
-            model.addElement(objeto.getNome()); //vai adicionando aluno por estado.
+        for (Professor objeto : professores) { //crio um looping para popular o objeto, no caso os professores
+            model.addElement(objeto.getNome()); //vai adicionando professor por professor
         }
 
         cb_professor.removeAllItems(); //remove todos do combo box.
         cb_professor.setModel(model);
-    }//GEN-LAST:event_cb_professorMouseClicked
+    }//GEN-LAST:event_cb_professorActionPerformed
 
-    public void setCampos(Coordenador coordenador) {
+    private void setCampos(Coordenador coordenador) {
         txtNome.setText(coordenador.getNome());
         txtDataNascimento.setText(coordenador.getDataNascimento());
         txtEmail.setText(coordenador.getEmail());
@@ -573,6 +571,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         tf_foto.setText(coordenador.getFoto());
         txtTelefone.setText(coordenador.getTelefone());
         labelFoto.setIcon(new ImageIcon("/home/bruno/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens/" + coordenador.getFoto()));
+        cb_professor.setSelectedItem(coordenador.getProfessor());
     }
 
     /**

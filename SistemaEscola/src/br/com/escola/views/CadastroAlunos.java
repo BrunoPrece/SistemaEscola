@@ -103,8 +103,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
         txtNome.setText("");
         tf_foto.setText("");
         txtTelefone.setText("");
-        labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/32x32/no-cameras-sign_1.png"));
+        labelFoto.setIcon(new ImageIcon("/home/bruno/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens/32x32/no-cameras-sign_1.png"));
     }
 
     @SuppressWarnings("unchecked")
@@ -448,13 +447,11 @@ public class CadastroAlunos extends javax.swing.JFrame {
          detecta o sistema operacional que vc esta usando, e armazena em uma variavel diretorio para pesquisa */
         String diretorio = "";
         if (System.getProperty("os.name").startsWith("Windows")) {
-            diretorio = "/Users/" + System.getProperty("user.name") + "/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                    + "sistemaEscola/sistemaEscola/Imagens";
+            diretorio = "/Users/" + System.getProperty("user.name") + "/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens";
             //JOptionPane.showMessageDialog(null, diretorio);
         } else if (System.getProperty("os.name").startsWith("Linux")) {
             //no caso do Linux é home
-            diretorio = "/home/" + System.getProperty("user.name") + "/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens";
+            diretorio = "/home/" + System.getProperty("user.name") + "/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens";
             //JOptionPane.showMessageDialog(null, diretorio);
         }
 
@@ -471,8 +468,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
             String foto = "" + buscarFoto.getSelectedFile().getName();
 
             tf_foto.setText(foto);
-            labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + tf_foto.getText()));
+            labelFoto.setIcon(new ImageIcon("/home/bruno/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens/" + tf_foto.getText()));
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possível inserir uma foto");
@@ -527,8 +523,6 @@ public class CadastroAlunos extends javax.swing.JFrame {
         setModelTable();
 
         JOptionPane.showMessageDialog(null, " Alterado com Sucesso!");
-        
-
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     /* Seta os campos */
