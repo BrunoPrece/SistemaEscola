@@ -21,7 +21,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
 
         /* chamada ao método*/
-        temaPadrao();
+        //temaPadrao();
     }
 
     /* Tema padrão, nesse caso ele vai setar como padrão o ambiente que o sistema esta
