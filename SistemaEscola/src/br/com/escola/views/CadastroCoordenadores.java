@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.table.JTableHeader;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -28,6 +29,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
     MaskFormatter formatoDN;
     MaskFormatter formatoTel;
     CoordenadorTableModel coordenadorTableModel;
+    JTableHeader header;
     private static int id_coordenador;
 
     /**
