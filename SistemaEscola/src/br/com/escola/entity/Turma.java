@@ -22,7 +22,7 @@ public class Turma implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codTurma;
     
-    @ManyToMany
+   // @ManyToMany
     private Professor professor;    
      
     @ManyToOne
