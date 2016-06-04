@@ -5,6 +5,7 @@
  */
 package br.com.escola.views;
 
+import br.escola.views.tablemodel.CoordenadorTableModel;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -20,12 +21,20 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
 
     MaskFormatter formatoDN ;
     MaskFormatter formatoTel;
+    CoordenadorTableModel coordenadorTableModel;
 
     /**
      * Creates new form CadastroAlunos
      */
     public CadastroCoordenadores() {
         initComponents();
+        setModelTable();
+    }
+    
+    public void setModelTable() {
+        coordenadorTableModel = new CoordenadorTableModel();
+        tableCoordenador.setModel(coordenadorTableModel);
+
     }
 
     /**
@@ -67,7 +76,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         botaoFoto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableCoordenador = new javax.swing.JTable();
         tf_foto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -111,7 +120,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableCoordenador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -122,7 +131,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
                 "Matricula.:", "Nome.:", "Email.:", "Telefone.:", "Curso.:"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableCoordenador);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -314,7 +323,6 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_Curso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelCurso;
     private javax.swing.JLabel labelDataNascimento;
     private javax.swing.JLabel labelEmail;
@@ -322,6 +330,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
     private javax.swing.JLabel labelMatricula;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelTelefone;
+    private javax.swing.JTable tableCoordenador;
     private javax.swing.JTextField tf_foto;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMatricula;

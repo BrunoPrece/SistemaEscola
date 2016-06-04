@@ -5,7 +5,7 @@
  */
 package br.escola.views.tablemodel;
 
-import br.com.escola.entity.Aluno;
+import br.com.escola.entity.Coordenador;
 import br.com.escola.utils.JpaUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +18,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author bruno
  */
-public class AlunoTableModel extends AbstractTableModel {
+public class CoordenadorTableModel extends AbstractTableModel {
+        EntityManager manager;
+    ArrayList<Coordenador> coordenadores;
 
-    EntityManager manager;
-    ArrayList<Aluno> alunos;
-
-    public AlunoTableModel() {
-        alunos = (ArrayList<Aluno>) popularTabela();
+    public CoordenadorTableModel() {
+        coordenadores = (ArrayList<Coordenador>) popularTabela();
     }
 
     public List popularTabela() {
@@ -33,9 +32,9 @@ public class AlunoTableModel extends AbstractTableModel {
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
 
-        List<Aluno> lista;
+        List<Coordenador> lista;
 
-        Query query = manager.createQuery("from Aluno");
+        Query query = manager.createQuery("from Coordenador");
 
         lista = query.getResultList();
         return lista;
@@ -43,7 +42,7 @@ public class AlunoTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return alunos.size();
+        return coordenadores.size();
     }
 
     @Override
@@ -55,15 +54,15 @@ public class AlunoTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return alunos.get(rowIndex).getId();
+                return coordenadores.get(rowIndex).getId();
             case 1:
-                return alunos.get(rowIndex).getNome();
+                return coordenadores.get(rowIndex).getNome();
             case 2:
-                return alunos.get(rowIndex).getEmail();
+                return coordenadores.get(rowIndex).getEmail();
             case 3:
-                return alunos.get(rowIndex).getTelefone();
+                return coordenadores.get(rowIndex).getTelefone();
             case 4:
-                return alunos.get(rowIndex).getCurso();
+                return coordenadores.get(rowIndex).getCurso();
             default:
                 return "Erro";
         }
@@ -87,5 +86,4 @@ public class AlunoTableModel extends AbstractTableModel {
         }
 
     }
-
 }

@@ -5,6 +5,7 @@
  */
 package br.com.escola.views;
 
+import br.escola.views.tablemodel.AlunoTableModel;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -21,12 +22,19 @@ public class CadastroAlunos extends javax.swing.JFrame {
     /* Objetos do tipo MaskFormatter (para inserir máscaras) */
     MaskFormatter formatoDN;
     MaskFormatter formatoTel;
-    
+    AlunoTableModel alunoTableModel;
     /**
      * Construtor Padrão da Classe.
      */
     public CadastroAlunos() {
         initComponents();
+        setModelTable();
+    }
+    
+      public void setModelTable() {
+        alunoTableModel = new AlunoTableModel();
+        tableAluno.setModel(alunoTableModel);
+
     }
 
     /**
@@ -68,7 +76,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         botaoFoto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableAluno = new javax.swing.JTable();
         tf_foto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -112,7 +120,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -123,7 +131,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
                 "Matricula.:", "Nome.:", "Email.:", "Telefone.:", "Curso.:"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableAluno);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -315,7 +323,6 @@ public class CadastroAlunos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_Curso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelCurso;
     private javax.swing.JLabel labelDataNascimento;
     private javax.swing.JLabel labelEmail;
@@ -323,6 +330,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
     private javax.swing.JLabel labelMatricula;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelTelefone;
+    private javax.swing.JTable tableAluno;
     private javax.swing.JTextField tf_foto;
     private javax.swing.JTextField txtDataNascimento;
     private javax.swing.JTextField txtEmail;

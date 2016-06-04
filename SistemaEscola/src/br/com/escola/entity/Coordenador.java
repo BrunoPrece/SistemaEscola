@@ -28,7 +28,9 @@ public class Coordenador implements Serializable {
     private String telefone;
     @Column
     private String foto;
-    
+    @Column
+    private String curso;
+
     @ManyToOne
     private Professor professor;
     
@@ -86,5 +88,12 @@ public class Coordenador implements Serializable {
         this.foto = foto;
     }
     
+        public String getCurso() {
+        return curso;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
     
 }
