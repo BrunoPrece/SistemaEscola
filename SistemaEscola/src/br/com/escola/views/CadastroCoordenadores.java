@@ -141,6 +141,8 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         txtTelefone = new JFormattedTextField(formatoTel);
         jLabel2 = new javax.swing.JLabel();
         cb_curso = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         painel_tabela = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableCoordenador = new javax.swing.JTable();
@@ -241,6 +243,10 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
 
         cb_curso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel3.setText("Professor.:");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout painel_informacoesLayout = new javax.swing.GroupLayout(painel_informacoes);
         painel_informacoes.setLayout(painel_informacoesLayout);
         painel_informacoesLayout.setHorizontalGroup(
@@ -249,29 +255,37 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painel_informacoesLayout.createSequentialGroup()
+                        .addComponent(cb_curso, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(painel_informacoesLayout.createSequentialGroup()
                         .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelEmail)
                             .addGroup(painel_informacoesLayout.createSequentialGroup()
                                 .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelMatricula))
+                                    .addComponent(labelEmail)
+                                    .addGroup(painel_informacoesLayout.createSequentialGroup()
+                                        .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(labelMatricula))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelNome)
+                                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(18, 18, 18)
                                 .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelNome)
-                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
-                        .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelTelefone)
-                            .addComponent(labelDataNascimento)
-                            .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel2)
-                    .addGroup(painel_informacoesLayout.createSequentialGroup()
-                        .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cb_curso, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(labelTelefone)
+                                    .addComponent(labelDataNascimento)
+                                    .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(painel_informacoesLayout.createSequentialGroup()
+                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painel_informacoesLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(126, 126, 126)
+                                .addComponent(jLabel3)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         painel_informacoesLayout.setVerticalGroup(
             painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,9 +309,13 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cb_curso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_curso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -511,8 +529,10 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cb_curso;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelDataNascimento;
     private javax.swing.JLabel labelEmail;

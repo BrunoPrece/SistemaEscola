@@ -532,7 +532,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     /* Seta os campos */
-    public void setCampos(Aluno aluno) {
+    private void setCampos(Aluno aluno) {
         txtNome.setText(aluno.getNome());
         txtDataNascimento.setText(aluno.getDataNascimento());
         txtEmail.setText(aluno.getEmail());

@@ -5,6 +5,8 @@
  */
 package br.com.escola.views;
 
+import br.com.escola.entity.Aluno;
+import br.com.escola.entity.Coordenador;
 import br.com.escola.entity.Disciplina;
 import br.com.escola.entity.Professor;
 import br.com.escola.utils.JpaUtils;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -100,7 +103,11 @@ public class CadastroDisciplinas extends javax.swing.JFrame {
 
         jLabel6.setText("Aluno.:");
 
-        cb_aluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_aluno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cb_alunoMouseClicked(evt);
+            }
+        });
 
         jLabel8.setText("Carga Horária.:");
 
@@ -309,6 +316,28 @@ public class CadastroDisciplinas extends javax.swing.JFrame {
         btn_salvar.setEnabled(false);
         mostrarInformacoes();
     }//GEN-LAST:event_btn_salvarActionPerformed
+
+    /* Populando um combobox */
+    private void cb_alunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_alunoMouseClicked
+        EntityManager manager = JpaUtils.getEntityManager();
+
+        /* Criamos uma query JPQL e armazenamos em uma váriavel query do tipo Query. */
+        Query query = manager.createQuery("from Aluno");
+        
+        /* Depois executamos o método getResultList() do objeto query e obtemos os
+           alunos e armazenamos em uma lista de alunos. */
+        List<Aluno> alunos = query.getResultList();
+        
+        
+        DefaultComboBoxModel model = new DefaultComboBoxModel(); //declaro um objeto para adicionar a lista
+        
+        for(Aluno objeto : alunos){ //crio um looping para popular o objeto, no caso os alunos
+                model.addElement(objeto.getNome()); //vai adicionando aluno por estado.
+        }
+        
+        cb_aluno.removeAllItems(); //remove todos do combo box.
+        cb_aluno.setModel(model); 
+    }//GEN-LAST:event_cb_alunoMouseClicked
 
     /**
      * @param args the command line arguments
