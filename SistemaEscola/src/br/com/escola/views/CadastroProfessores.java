@@ -24,7 +24,7 @@ import javax.swing.text.MaskFormatter;
  * @author labinfo
  */
 public class CadastroProfessores extends javax.swing.JFrame {
-    
+
     MaskFormatter formatoDN;
     MaskFormatter formatoTel;
     ProfessorTableModel professorTableModel;
@@ -38,9 +38,11 @@ public class CadastroProfessores extends javax.swing.JFrame {
         setModelTable();
         tf_foto.setVisible(false);
         mostrarInformacoes();
+        btnSalvar.setEnabled(false);
+
     }
-    
-     public void setModelTable() {
+
+    public void setModelTable() {
         professorTableModel = new ProfessorTableModel();
         tableProfessor.setModel(professorTableModel);
 
@@ -53,7 +55,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
         btnExcluir.setEnabled(true);
         btnSalvar.setEnabled(true);
     }
-    
+
     private void desativaBotoes() {
         btnNovo.setEnabled(false);
         btnAlterar.setEnabled(false);
@@ -89,10 +91,10 @@ public class CadastroProfessores extends javax.swing.JFrame {
         /* Fechando as conexões */
         manager.close();
         JpaUtils.getEntityManager().close();
-        
+
     }
-    
-     /* Método para limpar os campos. */
+
+    /* Método para limpar os campos. */
     private void limparCampos() {
         txtDataNascimento.setText("");
         txtEmail.setText("");
@@ -102,7 +104,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
         labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
                 + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/32x32/no-cameras-sign_1.png"));
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -136,8 +138,6 @@ public class CadastroProfessores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não foi possível inserir uma máscara" + erro);
         }
         txtTelefone = new JFormattedTextField(formatoTel);
-        painel_botoesControle = new javax.swing.JPanel();
-        botao_proximo = new javax.swing.JButton();
         painel_tabela = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProfessor = new javax.swing.JTable();
@@ -287,25 +287,6 @@ public class CadastroProfessores extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        botao_proximo.setText(">>");
-
-        javax.swing.GroupLayout painel_botoesControleLayout = new javax.swing.GroupLayout(painel_botoesControle);
-        painel_botoesControle.setLayout(painel_botoesControleLayout);
-        painel_botoesControleLayout.setHorizontalGroup(
-            painel_botoesControleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_botoesControleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botao_proximo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        painel_botoesControleLayout.setVerticalGroup(
-            painel_botoesControleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_botoesControleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botao_proximo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         tableProfessor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -349,11 +330,9 @@ public class CadastroProfessores extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(labelFoto))
                             .addComponent(painel_tabela, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 17, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(painel_botoesControle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(painel_botoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(painel_botoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(207, 207, 207)
@@ -374,8 +353,6 @@ public class CadastroProfessores extends javax.swing.JFrame {
                         .addComponent(painel_informacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painel_botoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(painel_botoesControle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(painel_tabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -398,7 +375,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
 
         /* Criando um novo Professor */
         Professor professor = new Professor();
-        
+
         professor.setId(0);
         professor.setNome(txtNome.getText());
         professor.setEmail(txtEmail.getText());
@@ -412,7 +389,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
         tx.commit();
         /* Fechando o EntityManager */
         manager.close();
-        
+
         JOptionPane.showMessageDialog(null, professor.getNome() + " Inserido com Sucesso!");
         id_professor = professor.getId() + 1;
         limparCampos();
@@ -431,7 +408,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
 
         /* Remove o veículo passado como parametro */
         manager.remove(professor);
-        
+
         tx.commit();
         manager.close();
         JpaUtils.getEntityManager().close();
@@ -452,7 +429,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
                     + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens";
             //JOptionPane.showMessageDialog(null, diretorio);
         }
-        
+
         try {
             /* Seta esse diretório como padrão */
             JFileChooser buscarFoto = new JFileChooser();
@@ -462,13 +439,13 @@ public class CadastroProfessores extends javax.swing.JFrame {
             //buscarFoto.setCurrentDirectory(new File("/home/fernando/Estoque/Estoque/Fotos/"));
             buscarFoto.setDialogTitle("Carregar Imagem do Aluno");
             buscarFoto.showOpenDialog(this);
-            
+
             String foto = "" + buscarFoto.getSelectedFile().getName();
-            
+
             tf_foto.setText(foto);
             labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
                     + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + tf_foto.getText()));
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possível inserir uma foto");
         }
@@ -516,7 +493,6 @@ public class CadastroProfessores extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botao_proximo;
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
@@ -530,7 +506,6 @@ public class CadastroProfessores extends javax.swing.JFrame {
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelTelefone;
     private javax.swing.JPanel painel_botoes;
-    private javax.swing.JPanel painel_botoesControle;
     private javax.swing.JPanel painel_informacoes;
     private javax.swing.JPanel painel_tabela;
     private javax.swing.JTable tableProfessor;
