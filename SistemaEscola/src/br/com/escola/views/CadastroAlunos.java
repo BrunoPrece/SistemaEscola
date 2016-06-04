@@ -8,6 +8,8 @@ package br.com.escola.views;
 import br.com.escola.entity.Aluno;
 import br.com.escola.utils.JpaUtils;
 import br.escola.views.tablemodel.AlunoTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,6 +19,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -28,6 +32,9 @@ public class CadastroAlunos extends javax.swing.JFrame {
     MaskFormatter formatoDN;
     MaskFormatter formatoTel;
     AlunoTableModel alunoTableModel;
+    JTableHeader header;
+    List<Aluno> alunos;
+    
     private static int id_aluno;
 
     /**
@@ -45,6 +52,8 @@ public class CadastroAlunos extends javax.swing.JFrame {
     public void setModelTable() {
         alunoTableModel = new AlunoTableModel();
         tableAluno.setModel(alunoTableModel);
+        header = tableAluno.getTableHeader();
+        header.addMouseListener(new ColumnHeaderListener());
 
     }
 
@@ -74,19 +83,10 @@ public class CadastroAlunos extends javax.swing.JFrame {
 
         /* Depois executamos o método getResultList() do objeto query e obtemos os
            alunos e armazenamos em uma lista de alunos. */
-        List<Aluno> alunos = query.getResultList();
+        alunos = query.getResultList();
 
         /* Laço utilizado para listar os alunos que estão presentes na lista. */
-        for (Aluno aluno : alunos) {
-            txtNome.setText(aluno.getNome());
-            txtDataNascimento.setText(aluno.getDataNascimento());
-            txtEmail.setText(aluno.getEmail());
-            txtMatricula.setText(Integer.toString(aluno.getId()));
-            tf_foto.setText(aluno.getFoto());
-            txtTelefone.setText(aluno.getTelefone());
-            labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + aluno.getFoto()));
-        }
+        setCampos(alunos.get(alunos.size()-1));
 
         /* Fechando as conexões */
         manager.close();
@@ -311,6 +311,11 @@ public class CadastroAlunos extends javax.swing.JFrame {
                 "Matricula.:", "Nome.:", "Email.:", "Telefone.:", "Curso.:"
             }
         ));
+        tableAluno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableAlunoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableAluno);
 
         javax.swing.GroupLayout painel_tabelaLayout = new javax.swing.GroupLayout(painel_tabela);
@@ -408,6 +413,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
         limparCampos();
         ativarBotoes();
         btnSalvar.setEnabled(false);
+        setModelTable();
         mostrarInformacoes();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -425,6 +431,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
         tx.commit();
         manager.close();
         JpaUtils.getEntityManager().close();
+        setModelTable();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     /* Método responsável por fazer a troca das fotos. */
@@ -470,6 +477,28 @@ public class CadastroAlunos extends javax.swing.JFrame {
         btnSalvar.setEnabled(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    private void tableAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAlunoMouseClicked
+        int line = tableAluno.getSelectedRow();
+        int id = Integer.parseInt(tableAluno.getValueAt(line, 0).toString());
+        
+      for(Aluno aluno: alunos){
+          if(id == aluno.getId()){
+              setCampos(aluno);
+              break;
+          }
+      }
+    }//GEN-LAST:event_tableAlunoMouseClicked
+    
+    public void setCampos(Aluno aluno){
+            txtNome.setText(aluno.getNome());
+            txtDataNascimento.setText(aluno.getDataNascimento());
+            txtEmail.setText(aluno.getEmail());
+            txtMatricula.setText(Integer.toString(aluno.getId()));
+            tf_foto.setText(aluno.getFoto());
+            txtTelefone.setText(aluno.getTelefone());
+            labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
+                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + aluno.getFoto()));
+    }
     /**
      * @param args the command line arguments
      */
@@ -531,4 +560,20 @@ public class CadastroAlunos extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+
+    class ColumnHeaderListener extends MouseAdapter {
+  public void mouseClicked(MouseEvent evt) {
+
+    TableColumnModel colModel = tableAluno.getColumnModel();
+    
+    // índice da coluna cujo titulo foi clicado
+    int vColIndex = colModel.getColumnIndexAtX(evt.getX());
+    int mColIndex = tableAluno.convertColumnIndexToModel(vColIndex);
+    
+    if(vColIndex == -1) {
+      return;
+    }
+    
+  }
+}
 }
