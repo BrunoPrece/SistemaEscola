@@ -5,19 +5,25 @@
  */
 package br.com.escola.views;
 
+import br.com.escola.entity.Aluno;
 import br.com.escola.entity.Coordenador;
+import br.com.escola.entity.Professor;
 import br.com.escola.utils.JpaUtils;
 import br.escola.views.tablemodel.CoordenadorTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -30,6 +36,8 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
     MaskFormatter formatoTel;
     CoordenadorTableModel coordenadorTableModel;
     JTableHeader header;
+
+    List<Coordenador> coordenadores;
     private static int id_coordenador;
 
     /**
@@ -78,15 +86,8 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         List<Coordenador> coordenadores = query.getResultList();
 
         /* Laço utilizado para listar os coordenadores que estão presentes na lista. */
-        for (Coordenador coordenador : coordenadores) {
-            txtNome.setText(coordenador.getNome());
-            txtDataNascimento.setText(coordenador.getDataNascimento());
-            txtEmail.setText(coordenador.getEmail());
-            txtMatricula.setText(Integer.toString(coordenador.getId()));
-            tf_foto.setText(coordenador.getFoto());
-            txtTelefone.setText(coordenador.getTelefone());
-            labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + coordenador.getFoto()));
+        if (!coordenadores.isEmpty()) {
+            setCampos(coordenadores.get(coordenadores.size() - 1));
         }
 
         /* Fechando as conexões */
@@ -141,8 +142,8 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         txtTelefone = new JFormattedTextField(formatoTel);
         jLabel2 = new javax.swing.JLabel();
         cb_curso = new javax.swing.JComboBox<>();
+        cb_professor = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         painel_tabela = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableCoordenador = new javax.swing.JTable();
@@ -171,6 +172,11 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/signing-the-contract.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/delete.png"))); // NOI18N
         btnExcluir.setText("Excluir");
@@ -243,9 +249,13 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
 
         cb_curso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel3.setText("Professor.:");
+        cb_professor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cb_professorMouseClicked(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel3.setText("Professor.:");
 
         javax.swing.GroupLayout painel_informacoesLayout = new javax.swing.GroupLayout(painel_informacoes);
         painel_informacoes.setLayout(painel_informacoesLayout);
@@ -255,9 +265,9 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painel_informacoesLayout.createSequentialGroup()
-                        .addComponent(cb_curso, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cb_curso, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cb_professor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(painel_informacoesLayout.createSequentialGroup()
                         .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painel_informacoesLayout.createSequentialGroup()
@@ -277,13 +287,13 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
                                     .addComponent(labelDataNascimento)
                                     .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(painel_informacoesLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(145, 145, 145)
+                                .addComponent(jLabel3))
+                            .addGroup(painel_informacoesLayout.createSequentialGroup()
                                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painel_informacoesLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(126, 126, 126)
-                                .addComponent(jLabel3)))
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -315,7 +325,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_informacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cb_curso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_professor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -330,6 +340,11 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
                 "Matricula.:", "Nome.:", "Email.:", "Telefone.:", "Curso.:"
             }
         ));
+        tableCoordenador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCoordenadorMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableCoordenador);
 
         javax.swing.GroupLayout painel_tabelaLayout = new javax.swing.GroupLayout(painel_tabela);
@@ -406,14 +421,16 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
 
         /* Criando um novo Coordenador */
         Coordenador coordenador = new Coordenador();
-
+       
         coordenador.setId(0);
         coordenador.setNome(txtNome.getText());
         coordenador.setEmail(txtEmail.getText());
         coordenador.setDataNascimento(txtDataNascimento.getText());
         coordenador.setTelefone(txtTelefone.getText());
         coordenador.setFoto(tf_foto.getText());
+        
 
+        
         /* Isso faz com que o JPA insira o objeto no banco de dados */
         manager.persist(coordenador);
         /* Fazendo um commit da transação */
@@ -426,7 +443,9 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         limparCampos();
         ativarBotoes();
         btnSalvar.setEnabled(false);
+        setModelTable();
         mostrarInformacoes();
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -443,6 +462,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         tx.commit();
         manager.close();
         JpaUtils.getEntityManager().close();
+        setModelTable();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     /* Método responsável por fazer a troca das fotos. */
@@ -488,6 +508,73 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         btnSalvar.setEnabled(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        EntityManager manager = JpaUtils.getEntityManager();
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+
+        int id = Integer.parseInt(txtMatricula.getText());
+
+        for (Coordenador coordenador : coordenadores) {
+            if (id == coordenador.getId()) {
+
+                coordenador.setNome(txtNome.getText());
+                coordenador.setEmail(txtEmail.getText());
+                coordenador.setDataNascimento(txtDataNascimento.getText());
+                coordenador.setTelefone(txtTelefone.getText());
+                coordenador.setFoto(tf_foto.getText());
+
+                manager.merge(coordenador);
+                break;
+            }
+        }
+        tx.commit();
+        manager.close();
+        setModelTable();
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void tableCoordenadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCoordenadorMouseClicked
+        int line = tableCoordenador.getSelectedRow();
+        int id = Integer.parseInt(tableCoordenador.getValueAt(line, 0).toString());
+
+        for (Coordenador coordenador : coordenadores) {
+            if (id == coordenador.getId()) {
+                setCampos(coordenador);
+                break;
+            }
+        }
+    }//GEN-LAST:event_tableCoordenadorMouseClicked
+
+    private void cb_professorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_professorMouseClicked
+        EntityManager manager = JpaUtils.getEntityManager();
+
+        /* Criamos uma query JPQL e armazenamos em uma váriavel query do tipo Query. */
+        Query query = manager.createQuery("from Professor");
+
+        /* Depois executamos o método getResultList() do objeto query e obtemos os
+           alunos e armazenamos em uma lista de alunos. */
+        List<Professor> professores = query.getResultList();
+
+        DefaultComboBoxModel model = new DefaultComboBoxModel(); //declaro um objeto para adicionar a lista
+
+        for (Professor objeto : professores) { //crio um looping para popular o objeto, no caso os alunos
+            model.addElement(objeto.getNome()); //vai adicionando aluno por estado.
+        }
+
+        cb_professor.removeAllItems(); //remove todos do combo box.
+        cb_professor.setModel(model);
+    }//GEN-LAST:event_cb_professorMouseClicked
+
+    public void setCampos(Coordenador coordenador) {
+        txtNome.setText(coordenador.getNome());
+        txtDataNascimento.setText(coordenador.getDataNascimento());
+        txtEmail.setText(coordenador.getEmail());
+        txtMatricula.setText(Integer.toString(coordenador.getId()));
+        tf_foto.setText(coordenador.getFoto());
+        txtTelefone.setText(coordenador.getTelefone());
+        labelFoto.setIcon(new ImageIcon("/home/bruno/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens/" + coordenador.getFoto()));
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -529,7 +616,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cb_curso;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cb_professor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -551,4 +638,21 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+class ColumnHeaderListener extends MouseAdapter {
+
+        public void mouseClicked(MouseEvent evt) {
+
+            TableColumnModel colModel = tableCoordenador.getColumnModel();
+
+            // índice da coluna cujo titulo foi clicado
+            int vColIndex = colModel.getColumnIndexAtX(evt.getX());
+            int mColIndex = tableCoordenador.convertColumnIndexToModel(vColIndex);
+
+            if (vColIndex == -1) {
+                return;
+            }
+
+        }
+    }
+
 }
