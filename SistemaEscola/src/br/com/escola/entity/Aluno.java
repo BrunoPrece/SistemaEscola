@@ -1,21 +1,40 @@
 
 package br.com.escola.entity;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  * Classe que vai representar a entidade Aluno.
  * @author Fernando Ortiz
  */
 
-public class Aluno {
+@Entity
+@Table(name = "tab_aluno")
+public class Aluno implements Serializable {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String nome;
+    @Column
     private String dataNascimento;
+    @Column
     private String email;
+    @Column
     private String telefone;
+    @Column
     private String foto;
-    
-    /* private Curso curso;*/
+        
+    @ManyToOne
+    private Curso curso;    
     
     public Aluno(){
         
@@ -67,6 +86,14 @@ public class Aluno {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
     
     

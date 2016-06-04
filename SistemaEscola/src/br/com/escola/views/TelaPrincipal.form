@@ -111,9 +111,6 @@
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="menu_temas">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/fernando/Dropbox/FACULDADE/3&#xba; ANO/LABORAT&#xd3;RIO DE COMPUTA&#xc7;&#xc3;O III/2&#xba; BIMESTRE/sistemaEscola/SistemaEscola/Imagens/32x32/paint-pallete-with-paint-brush.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Temas"/>
               </Properties>
               <SubComponents>

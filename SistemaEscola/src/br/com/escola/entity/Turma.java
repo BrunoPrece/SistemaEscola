@@ -1,15 +1,33 @@
 package br.com.escola.entity;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 /**
  * Classe que representa a entidade turma.
  * @author Fernando Ortiz
  */
-public class Turma {
+@Entity
+@Table(name = "tab_turma")
+public class Turma implements Serializable {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codTurma;
-    private Professor professor;
-    private Disciplina disciplina;
-    /* private Curso curso; */
+    
+    @ManyToMany
+    private Professor professor;    
+     
+    @ManyToMany
+    private Curso curso;
+    
+    @Column
     private String nome;
     
     public Turma(){
@@ -32,20 +50,20 @@ public class Turma {
         this.professor = professor;
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
-    }
-
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
-    }
-
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
     
     

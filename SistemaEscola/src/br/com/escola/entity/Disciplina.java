@@ -1,19 +1,39 @@
 
 package br.com.escola.entity;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  * Classe que vai representar a entidade Disciplina.
  * @author Fernando Ortiz
  */
-public class Disciplina {
 
+@Entity
+@Table(name = "tab_disciplina")
+public class Disciplina implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codTurma;
-    private Professor professor;
+    @Column
     private String nome;
-    /* private Turma turma; */
-    private Aluno aluno;
+    @Column
     private String cargaHoraria;
-
+    @ManyToOne
+    private Professor professor;
+    @ManyToOne
+    private Turma turma;
+    @ManyToOne
+    private Aluno aluno;
+    
     public int getCodTurma() {
         return codTurma;
     }
