@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -31,8 +30,7 @@ public class Disciplina implements Serializable {
     private Professor professor;
     @ManyToOne
     private Turma turma;
-    @ManyToOne
-    private Aluno aluno;
+    
     
     public int getCodTurma() {
         return codTurma;
@@ -56,14 +54,6 @@ public class Disciplina implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
     }
 
     public String getCargaHoraria() {
