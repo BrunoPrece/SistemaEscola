@@ -34,7 +34,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
     AlunoTableModel alunoTableModel;
     JTableHeader header;
     List<Aluno> alunos;
-    
+
     private static int id_aluno;
 
     /**
@@ -86,8 +86,9 @@ public class CadastroAlunos extends javax.swing.JFrame {
         alunos = query.getResultList();
 
         /* Laço utilizado para listar os alunos que estão presentes na lista. */
-        setCampos(alunos.get(alunos.size()-1));
-
+        if (!alunos.isEmpty()) {
+            setCampos(alunos.get(alunos.size() - 1));
+        }
         /* Fechando as conexões */
         manager.close();
         JpaUtils.getEntityManager().close();
@@ -101,8 +102,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
         txtNome.setText("");
         tf_foto.setText("");
         txtTelefone.setText("");
-        labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/32x32/no-cameras-sign_1.png"));
+        labelFoto.setIcon(new ImageIcon("/home/bruno/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens/32x32/no-cameras-sign_1.png"));
     }
 
     @SuppressWarnings("unchecked")
@@ -168,6 +168,11 @@ public class CadastroAlunos extends javax.swing.JFrame {
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/signing-the-contract.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/delete.png"))); // NOI18N
         btnExcluir.setText("Excluir");
@@ -440,13 +445,11 @@ public class CadastroAlunos extends javax.swing.JFrame {
          detecta o sistema operacional que vc esta usando, e armazena em uma variavel diretorio para pesquisa */
         String diretorio = "";
         if (System.getProperty("os.name").startsWith("Windows")) {
-            diretorio = "/Users/" + System.getProperty("user.name") + "/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                    + "sistemaEscola/sistemaEscola/Imagens";
+            diretorio = "/Users/" + System.getProperty("user.name") + "/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens";
             //JOptionPane.showMessageDialog(null, diretorio);
         } else if (System.getProperty("os.name").startsWith("Linux")) {
             //no caso do Linux é home
-            diretorio = "/home/" + System.getProperty("user.name") + "/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens";
+            diretorio = "/home/" + System.getProperty("user.name") + "/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens";
             //JOptionPane.showMessageDialog(null, diretorio);
         }
 
@@ -463,8 +466,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
             String foto = "" + buscarFoto.getSelectedFile().getName();
 
             tf_foto.setText(foto);
-            labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + tf_foto.getText()));
+            labelFoto.setIcon(new ImageIcon("/home/bruno/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens/" + tf_foto.getText()));
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possível inserir uma foto");
@@ -480,25 +482,50 @@ public class CadastroAlunos extends javax.swing.JFrame {
     private void tableAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAlunoMouseClicked
         int line = tableAluno.getSelectedRow();
         int id = Integer.parseInt(tableAluno.getValueAt(line, 0).toString());
-        
-      for(Aluno aluno: alunos){
-          if(id == aluno.getId()){
-              setCampos(aluno);
-              break;
-          }
-      }
+
+        for (Aluno aluno : alunos) {
+            if (id == aluno.getId()) {
+                setCampos(aluno);
+                break;
+            }
+        }
     }//GEN-LAST:event_tableAlunoMouseClicked
-    
-    public void setCampos(Aluno aluno){
-            txtNome.setText(aluno.getNome());
-            txtDataNascimento.setText(aluno.getDataNascimento());
-            txtEmail.setText(aluno.getEmail());
-            txtMatricula.setText(Integer.toString(aluno.getId()));
-            tf_foto.setText(aluno.getFoto());
-            txtTelefone.setText(aluno.getTelefone());
-            labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + aluno.getFoto()));
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        EntityManager manager = JpaUtils.getEntityManager();
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+
+        int id = Integer.parseInt(txtMatricula.getText());
+
+        for (Aluno aluno : alunos) {
+            if (id == aluno.getId()) {
+
+                aluno.setNome(txtNome.getText());
+                aluno.setEmail(txtEmail.getText());
+                aluno.setDataNascimento(txtDataNascimento.getText());
+                aluno.setTelefone(txtTelefone.getText());
+                aluno.setFoto(tf_foto.getText());
+
+                manager.merge(aluno);
+                break;
+            }
+        }
+        tx.commit();
+        manager.close();
+        setModelTable();
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    public void setCampos(Aluno aluno) {
+        txtNome.setText(aluno.getNome());
+        txtDataNascimento.setText(aluno.getDataNascimento());
+        txtEmail.setText(aluno.getEmail());
+        txtMatricula.setText(Integer.toString(aluno.getId()));
+        tf_foto.setText(aluno.getFoto());
+        txtTelefone.setText(aluno.getTelefone());
+        labelFoto.setIcon(new ImageIcon("/home/bruno/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens/" + aluno.getFoto()));
     }
+
     /**
      * @param args the command line arguments
      */
@@ -562,18 +589,19 @@ public class CadastroAlunos extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     class ColumnHeaderListener extends MouseAdapter {
-  public void mouseClicked(MouseEvent evt) {
 
-    TableColumnModel colModel = tableAluno.getColumnModel();
-    
-    // índice da coluna cujo titulo foi clicado
-    int vColIndex = colModel.getColumnIndexAtX(evt.getX());
-    int mColIndex = tableAluno.convertColumnIndexToModel(vColIndex);
-    
-    if(vColIndex == -1) {
-      return;
+        public void mouseClicked(MouseEvent evt) {
+
+            TableColumnModel colModel = tableAluno.getColumnModel();
+
+            // índice da coluna cujo titulo foi clicado
+            int vColIndex = colModel.getColumnIndexAtX(evt.getX());
+            int mColIndex = tableAluno.convertColumnIndexToModel(vColIndex);
+
+            if (vColIndex == -1) {
+                return;
+            }
+
+        }
     }
-    
-  }
-}
 }

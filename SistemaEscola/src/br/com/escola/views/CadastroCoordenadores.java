@@ -8,6 +8,8 @@ package br.com.escola.views;
 import br.com.escola.entity.Coordenador;
 import br.com.escola.utils.JpaUtils;
 import br.escola.views.tablemodel.CoordenadorTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -18,6 +20,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -30,6 +33,8 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
     MaskFormatter formatoTel;
     CoordenadorTableModel coordenadorTableModel;
     JTableHeader header;
+
+    List<Coordenador> coordenadores;
     private static int id_coordenador;
 
     /**
@@ -78,15 +83,8 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         List<Coordenador> coordenadores = query.getResultList();
 
         /* Laço utilizado para listar os coordenadores que estão presentes na lista. */
-        for (Coordenador coordenador : coordenadores) {
-            txtNome.setText(coordenador.getNome());
-            txtDataNascimento.setText(coordenador.getDataNascimento());
-            txtEmail.setText(coordenador.getEmail());
-            txtMatricula.setText(Integer.toString(coordenador.getId()));
-            tf_foto.setText(coordenador.getFoto());
-            txtTelefone.setText(coordenador.getTelefone());
-            labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + coordenador.getFoto()));
+               if (!coordenadores.isEmpty()) {
+            setCampos(coordenadores.get(coordenadores.size() - 1));
         }
 
         /* Fechando as conexões */
@@ -169,6 +167,11 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/signing-the-contract.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/delete.png"))); // NOI18N
         btnExcluir.setText("Excluir");
@@ -312,6 +315,11 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
                 "Matricula.:", "Nome.:", "Email.:", "Telefone.:", "Curso.:"
             }
         ));
+        tableCoordenador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCoordenadorMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableCoordenador);
 
         javax.swing.GroupLayout painel_tabelaLayout = new javax.swing.GroupLayout(painel_tabela);
@@ -408,7 +416,9 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         limparCampos();
         ativarBotoes();
         btnSalvar.setEnabled(false);
+        setModelTable();
         mostrarInformacoes();
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -425,6 +435,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         tx.commit();
         manager.close();
         JpaUtils.getEntityManager().close();
+        setModelTable();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     /* Método responsável por fazer a troca das fotos. */
@@ -470,6 +481,52 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         btnSalvar.setEnabled(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        EntityManager manager = JpaUtils.getEntityManager();
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+
+        int id = Integer.parseInt(txtMatricula.getText());
+
+        for (Coordenador coordenador : coordenadores) {
+            if (id == coordenador.getId()) {
+
+                coordenador.setNome(txtNome.getText());
+                coordenador.setEmail(txtEmail.getText());
+                coordenador.setDataNascimento(txtDataNascimento.getText());
+                coordenador.setTelefone(txtTelefone.getText());
+                coordenador.setFoto(tf_foto.getText());
+
+                manager.merge(coordenador);
+                break;
+            }
+        }
+        tx.commit();
+        manager.close();
+        setModelTable();
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void tableCoordenadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCoordenadorMouseClicked
+        int line = tableCoordenador.getSelectedRow();
+        int id = Integer.parseInt(tableCoordenador.getValueAt(line, 0).toString());
+
+        for (Coordenador coordenador : coordenadores) {
+            if (id == coordenador.getId()) {
+                setCampos(coordenador);
+                break;
+            }
+        }
+    }//GEN-LAST:event_tableCoordenadorMouseClicked
+
+       public void setCampos(Coordenador coordenador) {
+        txtNome.setText(coordenador.getNome());
+        txtDataNascimento.setText(coordenador.getDataNascimento());
+        txtEmail.setText(coordenador.getEmail());
+        txtMatricula.setText(Integer.toString(coordenador.getId()));
+        tf_foto.setText(coordenador.getFoto());
+        txtTelefone.setText(coordenador.getTelefone());
+        labelFoto.setIcon(new ImageIcon("/home/bruno/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens/" + coordenador.getFoto()));
+    }
     /**
      * @param args the command line arguments
      */
@@ -531,4 +588,21 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+class ColumnHeaderListener extends MouseAdapter {
+
+        public void mouseClicked(MouseEvent evt) {
+
+            TableColumnModel colModel = tableCoordenador.getColumnModel();
+
+            // índice da coluna cujo titulo foi clicado
+            int vColIndex = colModel.getColumnIndexAtX(evt.getX());
+            int mColIndex = tableCoordenador.convertColumnIndexToModel(vColIndex);
+
+            if (vColIndex == -1) {
+                return;
+            }
+
+        }
+    }
+
 }
