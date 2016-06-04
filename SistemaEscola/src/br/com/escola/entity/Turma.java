@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -23,6 +25,7 @@ public class Turma implements Serializable {
     private int codTurma;
     
    // @ManyToMany
+
     private Professor professor;    
      
     @ManyToOne
