@@ -7,6 +7,7 @@ package br.com.escola.views;
 
 import br.com.escola.entity.Professor;
 import br.com.escola.utils.JpaUtils;
+import br.escola.views.tablemodel.ProfessorTableModel;
 import java.io.File;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -26,7 +27,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
     
     MaskFormatter formatoDN;
     MaskFormatter formatoTel;
-    
+    ProfessorTableModel professorTableModel;
     private static int id_professor;
 
     /**
@@ -34,20 +35,15 @@ public class CadastroProfessores extends javax.swing.JFrame {
      */
     public CadastroProfessores() {
         initComponents();
-        
+        setModelTable();
         tf_foto.setVisible(false);
         mostrarInformacoes();
     }
+    
+     public void setModelTable() {
+        professorTableModel = new ProfessorTableModel();
+        tableProfessor.setModel(professorTableModel);
 
-    /* Método para limpar os campos. */
-    private void limparCampos() {
-        txtDataNascimento.setText("");
-        txtEmail.setText("");
-        txtNome.setText("");
-        tf_foto.setText("");
-        txtTelefone.setText("");
-        labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/32x32/no-cameras-sign_1.png"));
     }
 
     /* Métodos que ativam, e desativam os botões */
@@ -96,6 +92,17 @@ public class CadastroProfessores extends javax.swing.JFrame {
         
     }
     
+     /* Método para limpar os campos. */
+    private void limparCampos() {
+        txtDataNascimento.setText("");
+        txtEmail.setText("");
+        txtNome.setText("");
+        tf_foto.setText("");
+        txtTelefone.setText("");
+        labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
+                + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/32x32/no-cameras-sign_1.png"));
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -133,7 +140,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
         botao_proximo = new javax.swing.JButton();
         painel_tabela = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableProfessor = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de ALunos");
@@ -299,7 +306,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableProfessor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -310,16 +317,15 @@ public class CadastroProfessores extends javax.swing.JFrame {
                 "Matricula.:", "Nome.:", "Email.:", "Telefone.:"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableProfessor);
 
         javax.swing.GroupLayout painel_tabelaLayout = new javax.swing.GroupLayout(painel_tabela);
         painel_tabela.setLayout(painel_tabelaLayout);
         painel_tabelaLayout.setHorizontalGroup(
             painel_tabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_tabelaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_tabelaLayout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         painel_tabelaLayout.setVerticalGroup(
             painel_tabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -517,7 +523,6 @@ public class CadastroProfessores extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelDataNascimento;
     private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelFoto;
@@ -528,6 +533,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
     private javax.swing.JPanel painel_botoesControle;
     private javax.swing.JPanel painel_informacoes;
     private javax.swing.JPanel painel_tabela;
+    private javax.swing.JTable tableProfessor;
     private javax.swing.JTextField tf_foto;
     private javax.swing.JTextField txtDataNascimento;
     private javax.swing.JTextField txtEmail;

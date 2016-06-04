@@ -5,7 +5,7 @@
  */
 package br.escola.views.tablemodel;
 
-import br.com.escola.entity.Aluno;
+import br.com.escola.entity.Professor;
 import br.com.escola.utils.JpaUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,32 +18,32 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author bruno
  */
-public class AlunoTableModel extends AbstractTableModel {
+public class ProfessorTableModel extends AbstractTableModel {
 
     EntityManager manager;
-    ArrayList<Aluno> alunos;
+    ArrayList<Professor> professores;
 
-    public AlunoTableModel() {
-        alunos = (ArrayList<Aluno>) popularTabela();
+    public ProfessorTableModel() {
+        professores = (ArrayList<Professor>) popularTabela();
     }
-
+    
     public List popularTabela() {
-
+        
         manager = JpaUtils.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
-
-        List<Aluno> lista;
+        
+        List<Professor> lista;
 
         Query query = manager.createQuery("from Professor");
-
+        
         lista = query.getResultList();
         return lista;
     }
 
     @Override
     public int getRowCount() {
-        return alunos.size();
+        return professores.size();
     }
 
     @Override
@@ -51,17 +51,17 @@ public class AlunoTableModel extends AbstractTableModel {
         return 4;
     }
 
-       @Override
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return alunos.get(rowIndex).getId();
+                return professores.get(rowIndex).getId();
             case 1:
-                return alunos.get(rowIndex).getNome();
+                return professores.get(rowIndex).getNome();
             case 2:
-                return alunos.get(rowIndex).getEmail();
+                return professores.get(rowIndex).getEmail();
             case 3:
-                return alunos.get(rowIndex).getTelefone();
+                return professores.get(rowIndex).getTelefone();
             default:
                 return "Erro";
         }
@@ -78,8 +78,6 @@ public class AlunoTableModel extends AbstractTableModel {
                 return "Email";
             case 3:
                 return "Telefone";
-            case 4:
-                return "Curso";
             default:
                 return "Erro";
         }
