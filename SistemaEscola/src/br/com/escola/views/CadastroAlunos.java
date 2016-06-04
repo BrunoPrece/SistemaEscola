@@ -6,6 +6,7 @@
 package br.com.escola.views;
 
 import br.com.escola.entity.Aluno;
+import br.com.escola.entity.Curso;
 import br.com.escola.utils.JpaUtils;
 import br.escola.views.tablemodel.AlunoTableModel;
 import java.awt.event.MouseAdapter;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
@@ -34,6 +36,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
     AlunoTableModel alunoTableModel;
     JTableHeader header;
     List<Aluno> alunos;
+    List<Curso> cursos;
 
     private static int id_aluno;
 
@@ -244,7 +247,11 @@ public class CadastroAlunos extends javax.swing.JFrame {
 
         labelCurso.setText("Curso.:");
 
-        cb_Curso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_Curso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cb_CursoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout painel_informacoesLayout = new javax.swing.GroupLayout(painel_informacoes);
         painel_informacoes.setLayout(painel_informacoesLayout);
@@ -406,7 +413,14 @@ public class CadastroAlunos extends javax.swing.JFrame {
         aluno.setDataNascimento(txtDataNascimento.getText());
         aluno.setTelefone(txtTelefone.getText());
         aluno.setFoto(tf_foto.getText());
-
+        
+        for (Curso curso : cursos) { 
+           if(curso.getNome().equals(cb_Curso.getSelectedItem())){
+               aluno.setCurso(curso);
+           }
+            
+        }
+        
         /* Isso faz com que o JPA insira o objeto no banco de dados */
         manager.persist(aluno);
         /* Fazendo um commit da transação */
@@ -525,6 +539,28 @@ public class CadastroAlunos extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, " Alterado com Sucesso!");
     }//GEN-LAST:event_btnAlterarActionPerformed
 
+    private void cb_CursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_CursoMouseClicked
+       EntityManager manager = JpaUtils.getEntityManager();
+
+        /* Criamos uma query JPQL e armazenamos em uma váriavel query do tipo Query. */
+        Query query = manager.createQuery("from Curso");
+
+        /* Depois executamos o método getResultList() do objeto query e obtemos os
+           alunos e armazenamos em uma lista de alunos. */
+        cursos = query.getResultList();
+
+        DefaultComboBoxModel model = new DefaultComboBoxModel(); //declaro um objeto para adicionar a lista
+
+        for (Curso objeto : cursos) { //crio um looping para popular o objeto, no caso os professores
+            model.addElement(objeto.getNome()); //vai adicionando professor por professor
+            
+        }
+
+        cb_Curso.removeAllItems(); //remove todos do combo box.
+        cb_Curso.setModel(model);
+        cb_Curso.updateUI();
+    }//GEN-LAST:event_cb_CursoMouseClicked
+
     /* Seta os campos */
     private void setCampos(Aluno aluno) {
         txtNome.setText(aluno.getNome());
@@ -535,6 +571,15 @@ public class CadastroAlunos extends javax.swing.JFrame {
         txtTelefone.setText(aluno.getTelefone());
         labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
                 + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + aluno.getFoto()));
+        
+        
+        for (Curso curso : cursos) { 
+            if(curso.getNome().equals(aluno.getCurso().getNome())){
+                cb_Curso.setSelectedItem(aluno.getCurso());
+           }
+    
+        }
+       
     }
 
     /**

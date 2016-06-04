@@ -571,7 +571,7 @@ public class CadastroCoordenadores extends javax.swing.JFrame {
         tf_foto.setText(coordenador.getFoto());
         txtTelefone.setText(coordenador.getTelefone());
         labelFoto.setIcon(new ImageIcon("/home/bruno/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens/" + coordenador.getFoto()));
-        cb_professor.setSelectedItem(coordenador.getProfessor());
+        cb_professor.setSelectedItem(coordenador.getProfessor().getNome());
     }
 
     /**

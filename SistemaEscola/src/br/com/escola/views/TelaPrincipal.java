@@ -232,7 +232,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_item_professorActionPerformed
 
     private void item_cursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_cursoActionPerformed
-        new CadastroTurmas().show();
+        new CadastroCursos().show();
     }//GEN-LAST:event_item_cursoActionPerformed
 
     private void item_disciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_disciplinaActionPerformed
