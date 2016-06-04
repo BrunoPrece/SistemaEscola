@@ -85,8 +85,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
            alunos e armazenamos em uma lista de alunos. */
         alunos = query.getResultList();
 
-
-        /* Laço utilizado para listar os alunos que estão presentes na lista. */
+        /* Condição utilizado para listar os alunos que estão presentes na lista. */
         if (!alunos.isEmpty()) {
             setCampos(alunos.get(alunos.size() - 1));
         }
@@ -488,6 +487,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
         int line = tableAluno.getSelectedRow();
         /* pega o id que esta na coluna */
         int id = Integer.parseInt(tableAluno.getValueAt(line, 0).toString());
+
         /* Percorre a lista de alunos e verifica qual aluno tem o id clicado */
         for (Aluno aluno : alunos) {
             if (id == aluno.getId()) {
@@ -517,11 +517,15 @@ public class CadastroAlunos extends javax.swing.JFrame {
                 break;
             }
         }
+        
         tx.commit();
         manager.close();
         setModelTable();
-    }                                          
 
+        JOptionPane.showMessageDialog(null, " Alterado com Sucesso!");
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    /* Seta os campos */
     public void setCampos(Aluno aluno) {
         txtNome.setText(aluno.getNome());
         txtDataNascimento.setText(aluno.getDataNascimento());
@@ -529,12 +533,9 @@ public class CadastroAlunos extends javax.swing.JFrame {
         txtMatricula.setText(Integer.toString(aluno.getId()));
         tf_foto.setText(aluno.getFoto());
         txtTelefone.setText(aluno.getTelefone());
-        labelFoto.setIcon(new ImageIcon("/home/bruno/NetBeansProjects/sistemaEscola/SistemaEscola/Imagens/" + aluno.getFoto()));
-        setModelTable();
-        JOptionPane.showMessageDialog(null, " Alterado com Sucesso!");
- 
-    }//GEN-LAST:event_btnAlterarActionPerformed
-
+        labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
+                + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + aluno.getFoto()));
+    }
 
     /**
      * @param args the command line arguments

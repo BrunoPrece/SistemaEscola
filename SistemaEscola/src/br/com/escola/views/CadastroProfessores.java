@@ -8,6 +8,8 @@ package br.com.escola.views;
 import br.com.escola.entity.Professor;
 import br.com.escola.utils.JpaUtils;
 import br.escola.views.tablemodel.ProfessorTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,6 +19,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -28,6 +32,8 @@ public class CadastroProfessores extends javax.swing.JFrame {
     MaskFormatter formatoDN;
     MaskFormatter formatoTel;
     ProfessorTableModel professorTableModel;
+    JTableHeader header;
+    List<Professor> professores;
     private static int id_professor;
 
     /**
@@ -45,6 +51,8 @@ public class CadastroProfessores extends javax.swing.JFrame {
     public void setModelTable() {
         professorTableModel = new ProfessorTableModel();
         tableProfessor.setModel(professorTableModel);
+        header = tableProfessor.getTableHeader();
+        header.addMouseListener(new ColumnHeaderListener());
 
     }
 
@@ -77,15 +85,8 @@ public class CadastroProfessores extends javax.swing.JFrame {
         List<Professor> professores = query.getResultList();
 
         /* Laço utilizado para listar os professores que estão presentes na lista. */
-        for (Professor professor : professores) {
-            txtNome.setText(professor.getNome());
-            txtDataNascimento.setText(professor.getDataNasc());
-            txtEmail.setText(professor.getEmail());
-            txtMatricula.setText(Integer.toString(professor.getId()));
-            tf_foto.setText(professor.getFoto());
-            txtTelefone.setText(professor.getTelefone());
-            labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + professor.getFoto()));
+        if (!professores.isEmpty()) {
+            setCampos(professores.get(professores.size() - 1));
         }
 
         /* Fechando as conexões */
@@ -166,6 +167,11 @@ public class CadastroProfessores extends javax.swing.JFrame {
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/signing-the-contract.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/24x24/delete.png"))); // NOI18N
         btnExcluir.setText("Excluir");
@@ -298,6 +304,11 @@ public class CadastroProfessores extends javax.swing.JFrame {
                 "Matricula.:", "Nome.:", "Email.:", "Telefone.:"
             }
         ));
+        tableProfessor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableProfessorMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableProfessor);
 
         javax.swing.GroupLayout painel_tabelaLayout = new javax.swing.GroupLayout(painel_tabela);
@@ -395,6 +406,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
         limparCampos();
         ativarBotoes();
         btnSalvar.setEnabled(false);
+        setModelTable();
         mostrarInformacoes();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -412,6 +424,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
         tx.commit();
         manager.close();
         JpaUtils.getEntityManager().close();
+        setModelTable();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     /* Método responsável por fazer a troca das fotos. */
@@ -457,6 +470,60 @@ public class CadastroProfessores extends javax.swing.JFrame {
         btnSalvar.setEnabled(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    private void tableProfessorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProfessorMouseClicked
+        int line = tableProfessor.getSelectedRow();
+        /* pega o id que esta na coluna */
+        int id = Integer.parseInt(tableProfessor.getValueAt(line, 0).toString());
+        System.out.println(id);
+        
+        for (Professor professor : professores) {
+            if (id == professor.getId()) {
+                setCampos(professor);
+                break;
+            }
+        }
+    }//GEN-LAST:event_tableProfessorMouseClicked
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        EntityManager manager = JpaUtils.getEntityManager();
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+
+        int id = Integer.parseInt(txtMatricula.getText());
+
+        for (Professor professor : professores) {
+            if (id == professor.getId()) {
+
+                professor.setNome(txtNome.getText());
+                professor.setEmail(txtEmail.getText());
+                professor.setDataNasc(txtDataNascimento.getText());
+                professor.setTelefone(txtTelefone.getText());
+                professor.setFoto(tf_foto.getText());
+
+                manager.merge(professor);
+                break;
+            }
+        }
+        
+        tx.commit();
+        manager.close();
+        setModelTable();
+
+        JOptionPane.showMessageDialog(null, " Alterado com Sucesso!");
+    }//GEN-LAST:event_btnAlterarActionPerformed
+    
+        /* Seta os campos */
+    public void setCampos(Professor professor) {
+        txtNome.setText(professor.getNome());
+        txtDataNascimento.setText(professor.getDataNasc());
+        txtEmail.setText(professor.getEmail());
+        txtMatricula.setText(Integer.toString(professor.getId()));
+        tf_foto.setText(professor.getFoto());
+        txtTelefone.setText(professor.getTelefone());
+        labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
+                + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + professor.getFoto()));
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -516,4 +583,20 @@ public class CadastroProfessores extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+  class ColumnHeaderListener extends MouseAdapter {
+
+        public void mouseClicked(MouseEvent evt) {
+
+            TableColumnModel colModel = tableProfessor.getColumnModel();
+
+            // índice da coluna cujo titulo foi clicado
+            int vColIndex = colModel.getColumnIndexAtX(evt.getX());
+            int mColIndex = tableProfessor.convertColumnIndexToModel(vColIndex);
+
+            if (vColIndex == -1) {
+                return;
+            }
+
+        }
+    }
 }
