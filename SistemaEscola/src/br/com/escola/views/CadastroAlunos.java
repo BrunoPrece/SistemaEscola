@@ -87,7 +87,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
         /* Depois executamos o método getResultList() do objeto query e obtemos os
            alunos e armazenamos em uma lista de alunos. */
         alunos = query.getResultList();
-
+        
         /* Condição utilizado para listar os alunos que estão presentes na lista. */
         if (!alunos.isEmpty()) {
             setCampos(alunos.get(alunos.size() - 1));
