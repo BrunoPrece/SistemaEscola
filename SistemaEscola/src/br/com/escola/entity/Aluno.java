@@ -96,5 +96,9 @@ public class Aluno implements Serializable {
         this.curso = curso;
     }
     
+    public String getNomeCurso(){
+    return curso.getNome().toString();
+    }
+    
     
 }

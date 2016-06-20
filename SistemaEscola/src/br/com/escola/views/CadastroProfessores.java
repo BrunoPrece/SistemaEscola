@@ -82,7 +82,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
 
         /* Depois executamos o método getResultList() do objeto query e obtemos os
            professores e armazenamos em uma lista de professores. */
-        List<Professor> professores = query.getResultList();
+         professores = query.getResultList();
 
         /* Laço utilizado para listar os professores que estão presentes na lista. */
         if (!professores.isEmpty()) {
@@ -477,6 +477,7 @@ public class CadastroProfessores extends javax.swing.JFrame {
         System.out.println(id);
         
         for (Professor professor : professores) {
+            System.out.println("ID: "+professor.getId()+" NOME:"+professor.getNome());
             if (id == professor.getId()) {
                 setCampos(professor);
                 break;

@@ -21,8 +21,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumnModel;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -34,7 +32,6 @@ public class CadastroAlunos extends javax.swing.JFrame {
     MaskFormatter formatoDN;
     MaskFormatter formatoTel;
     AlunoTableModel alunoTableModel;
-    JTableHeader header;
     List<Aluno> alunos;
     List<Curso> cursos;
 
@@ -55,8 +52,6 @@ public class CadastroAlunos extends javax.swing.JFrame {
     public void setModelTable() {
         alunoTableModel = new AlunoTableModel();
         tableAluno.setModel(alunoTableModel);
-        header = tableAluno.getTableHeader();
-        header.addMouseListener(new ColumnHeaderListener());
 
     }
 
@@ -88,6 +83,10 @@ public class CadastroAlunos extends javax.swing.JFrame {
            alunos e armazenamos em uma lista de alunos. */
         alunos = query.getResultList();
         
+        Query curso = manager.createQuery("from Curso");
+        cursos = curso.getResultList();
+        populaBox(manager);
+        
         /* Condição utilizado para listar os alunos que estão presentes na lista. */
         if (!alunos.isEmpty()) {
             setCampos(alunos.get(alunos.size() - 1));
@@ -97,6 +96,17 @@ public class CadastroAlunos extends javax.swing.JFrame {
         manager.close();
         JpaUtils.getEntityManager().close();
 
+    }
+    private void populaBox(EntityManager manager){
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+        for (Curso c : cursos) { 
+            model.addElement(c.getNome());
+        }
+        cb_Curso.removeAllItems(); //remove todos do combo box.
+        cb_Curso.setModel(model);
+        cb_Curso.updateUI();
+        
     }
 
     /* Método para limpar os campos. */
@@ -540,25 +550,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void cb_CursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_CursoMouseClicked
-       EntityManager manager = JpaUtils.getEntityManager();
 
-        /* Criamos uma query JPQL e armazenamos em uma váriavel query do tipo Query. */
-        Query query = manager.createQuery("from Curso");
-
-        /* Depois executamos o método getResultList() do objeto query e obtemos os
-           alunos e armazenamos em uma lista de alunos. */
-        cursos = query.getResultList();
-
-        DefaultComboBoxModel model = new DefaultComboBoxModel(); //declaro um objeto para adicionar a lista
-
-        for (Curso objeto : cursos) { //crio um looping para popular o objeto, no caso os professores
-            model.addElement(objeto.getNome()); //vai adicionando professor por professor
-            
-        }
-
-        cb_Curso.removeAllItems(); //remove todos do combo box.
-        cb_Curso.setModel(model);
-        cb_Curso.updateUI();
     }//GEN-LAST:event_cb_CursoMouseClicked
 
     /* Seta os campos */
@@ -571,14 +563,8 @@ public class CadastroAlunos extends javax.swing.JFrame {
         txtTelefone.setText(aluno.getTelefone());
         labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
                 + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + aluno.getFoto()));
-        
-        
-        for (Curso curso : cursos) { 
-            if(curso.getNome().equals(aluno.getCurso().getNome())){
-                cb_Curso.setSelectedItem(aluno.getCurso());
-           }
-    
-        }
+        //cb_Curso.setSelectedItem(aluno.getCurso().getNome());
+
        
     }
 
@@ -647,20 +633,5 @@ public class CadastroAlunos extends javax.swing.JFrame {
     /**
      * Classe responsável por ler as linhas e colunas clicadas
      */
-    class ColumnHeaderListener extends MouseAdapter {
-
-        public void mouseClicked(MouseEvent evt) {
-
-            TableColumnModel colModel = tableAluno.getColumnModel();
-
-            // índice da coluna cujo titulo foi clicado
-            int vColIndex = colModel.getColumnIndexAtX(evt.getX());
-            int mColIndex = tableAluno.convertColumnIndexToModel(vColIndex);
-
-            if (vColIndex == -1) {
-                return;
-            }
-
-        }
-    }
+    
 }

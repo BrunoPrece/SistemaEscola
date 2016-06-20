@@ -322,7 +322,7 @@ public class CadastroDisciplinas extends javax.swing.JFrame {
         EntityManager manager = JpaUtils.getEntityManager();
 
         /* Criamos uma query JPQL e armazenamos em uma váriavel query do tipo Query. */
-        Query query = manager.createQuery("from Aluno");
+        Query query = manager.createQuery("from Disciplina");
         
         /* Depois executamos o método getResultList() do objeto query e obtemos os
            alunos e armazenamos em uma lista de alunos. */

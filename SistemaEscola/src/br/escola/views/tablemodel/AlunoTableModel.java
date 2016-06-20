@@ -63,7 +63,7 @@ public class AlunoTableModel extends AbstractTableModel {
             case 3:
                 return alunos.get(rowIndex).getTelefone();
             case 4:
-                return alunos.get(rowIndex).getCurso().getNome();
+                return alunos.get(rowIndex).getNomeCurso();
             default:
                 return "Erro";
         }
