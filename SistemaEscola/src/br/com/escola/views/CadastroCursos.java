@@ -7,7 +7,6 @@ package br.com.escola.views;
 
 import br.com.escola.entity.Curso;
 import br.com.escola.utils.JpaUtils;
-import br.escola.views.tablemodel.AlunoTableModel;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

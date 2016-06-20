@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.escola.views;
 
 import br.com.escola.entity.Aluno;
@@ -29,26 +24,29 @@ import javax.swing.text.MaskFormatter;
  */
 public class CadastroAlunos extends javax.swing.JFrame {
 
+    /* Variáveis utilizadas para criação de mascáras */
     MaskFormatter formatoDN;
     MaskFormatter formatoTel;
+
+    /* Objeto do tipo TableModel */
     AlunoTableModel alunoTableModel;
     List<Aluno> alunos;
     List<Curso> cursos;
-
-    private static int id_aluno;
-
+static int id_aluno;
     /**
      * Construtor Padrão.
      */
     public CadastroAlunos() {
         initComponents();
-        setModelTable();
-        tf_foto.setVisible(false);
+        setModelTable(); // setando a tabela sempre quando inicia
+        tf_foto.setVisible(false); // gambis
         mostrarInformacoes();
         btnSalvar.setEnabled(false);
+        popularComboBox();
 
     }
 
+    /* Método responsavel por setar uma tableModel */
     public void setModelTable() {
         alunoTableModel = new AlunoTableModel();
         tableAluno.setModel(alunoTableModel);
@@ -71,7 +69,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
     }
 
     /**
-     * Método que mostra as informações (a última) presente no banco de dados.
+     * Método que mostra as informações presente no banco de dados.
      */
     private void mostrarInformacoes() {
         EntityManager manager = JpaUtils.getEntityManager();
@@ -403,7 +401,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Método responsável por persistir informações no banco
+     * Método responsável por persistir informações no banco.
      */
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
@@ -423,14 +421,14 @@ public class CadastroAlunos extends javax.swing.JFrame {
         aluno.setDataNascimento(txtDataNascimento.getText());
         aluno.setTelefone(txtTelefone.getText());
         aluno.setFoto(tf_foto.getText());
-        
-        for (Curso curso : cursos) { 
+
+        for (Curso curso : cursos) {
            if(curso.getNome().equals(cb_Curso.getSelectedItem())){
-               aluno.setCurso(curso);
-           }
-            
+                aluno.setCurso(curso);
+            }
+
         }
-        
+
         /* Isso faz com que o JPA insira o objeto no banco de dados */
         manager.persist(aluno);
         /* Fazendo um commit da transação */
@@ -456,7 +454,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
         /* Primeiro busca o Aluno */
         Aluno aluno = manager.find(Aluno.class, Integer.parseInt(txtMatricula.getText()));
 
-        /* Remove o veículo passado como parametro */
+        /* Remove o aluno passado como parametro */
         manager.remove(aluno);
 
         tx.commit();
@@ -499,6 +497,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_labelFotoMouseClicked
 
+    /* Evento do botão novo, ele vai limpar todos os campos e desativar alguns botões. */
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         limparCampos();
         desativaBotoes();
@@ -515,12 +514,14 @@ public class CadastroAlunos extends javax.swing.JFrame {
         /* Percorre a lista de alunos e verifica qual aluno tem o id clicado */
         for (Aluno aluno : alunos) {
             if (id == aluno.getId()) {
+                /* seta todos os campos nos textField com as informações do aluno */
                 setCampos(aluno);
                 break;
             }
         }
     }//GEN-LAST:event_tableAlunoMouseClicked
 
+    /* Método responsável por fazer alterações no banco de dados. */
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         EntityManager manager = JpaUtils.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
@@ -528,44 +529,77 @@ public class CadastroAlunos extends javax.swing.JFrame {
 
         int id = Integer.parseInt(txtMatricula.getText());
 
-        for (Aluno aluno : alunos) {
-            if (id == aluno.getId()) {
+        /* Primeiro busca o Aluno */
+        Aluno aluno = manager.find(Aluno.class, id);
 
-                aluno.setNome(txtNome.getText());
-                aluno.setEmail(txtEmail.getText());
-                aluno.setDataNascimento(txtDataNascimento.getText());
-                aluno.setTelefone(txtTelefone.getText());
-                aluno.setFoto(tf_foto.getText());
+        aluno.setNome(txtNome.getText());
+        aluno.setEmail(txtEmail.getText());
+        aluno.setDataNascimento(txtDataNascimento.getText());
+        aluno.setTelefone(txtTelefone.getText());
+        aluno.setFoto(tf_foto.getText());
 
-                manager.merge(aluno);
-                break;
+        for (Curso curso : cursos) {
+            if (curso.getNome().equals(cb_Curso.getSelectedItem())) {
+                aluno.setCurso(curso);
             }
         }
-        
-        tx.commit();
-        manager.close();
-        setModelTable();
 
-        JOptionPane.showMessageDialog(null, " Alterado com Sucesso!");
+            manager.merge(aluno);
+
+            tx.commit();
+            setModelTable();
+            setCampos(aluno);
+            manager.close();
+
+            JOptionPane.showMessageDialog(null, " Alterado com Sucesso!");
+
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    private void cb_CursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_CursoMouseClicked
+    /* Método responsável por popular o comboBox com as informações do curso */
+    private void popularComboBox() {
+        EntityManager manager = JpaUtils.getEntityManager();
 
+        /* Criamos uma query JPQL e armazenamos em uma váriavel query do tipo Query. */
+        Query query = manager.createQuery("from Curso");
+
+        /* Depois executamos o método getResultList() do objeto query e obtemos os
+           alunos e armazenamos em uma lista de alunos. */
+        cursos = query.getResultList();
+
+        DefaultComboBoxModel model = new DefaultComboBoxModel(); //declaro um objeto para adicionar a lista
+
+        for (Curso objeto : cursos) { //crio um looping para popular o objeto, no caso os professores
+            model.addElement(objeto.getNome()); //vai adicionando aluno por aluno
+
+        }
+
+        cb_Curso.removeAllItems(); //remove todos do combo box.
+        cb_Curso.setModel(model);
+        cb_Curso.updateUI();
+    }
+
+    /* Ao clicar no comboBox, o mesmo vai ser populado */
+    private void cb_CursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_CursoMouseClicked
+        popularComboBox();
     }//GEN-LAST:event_cb_CursoMouseClicked
 
     /* Seta os campos */
     private void setCampos(Aluno aluno) {
-        txtNome.setText(aluno.getNome());
-        txtDataNascimento.setText(aluno.getDataNascimento());
-        txtEmail.setText(aluno.getEmail());
-        txtMatricula.setText(Integer.toString(aluno.getId()));
-        tf_foto.setText(aluno.getFoto());
-        txtTelefone.setText(aluno.getTelefone());
-        labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
-                + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + aluno.getFoto()));
-        //cb_Curso.setSelectedItem(aluno.getCurso().getNome());
+        for (Curso curso : cursos) {
+            if (curso.getNome().equals(aluno.getCurso().getNome())) {
+                cb_Curso.setSelectedItem(aluno.getCurso().getNome());
+            }
 
-       
+            txtNome.setText(aluno.getNome());
+            txtDataNascimento.setText(aluno.getDataNascimento());
+            txtEmail.setText(aluno.getEmail());
+            txtMatricula.setText(Integer.toString(aluno.getId()));
+            tf_foto.setText(aluno.getFoto());
+            txtTelefone.setText(aluno.getTelefone());
+            labelFoto.setIcon(new ImageIcon("/home/fernando/Dropbox/FACULDADE/3º ANO/LABORATÓRIO DE COMPUTAÇÃO III/2º BIMESTRE/"
+                    + "Sistema Escola/sistemaEscola/SistemaEscola/Imagens/" + aluno.getFoto()));
+        }
+
     }
 
     /**
@@ -582,16 +616,24 @@ public class CadastroAlunos extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroAlunos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroAlunos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroAlunos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroAlunos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroAlunos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroAlunos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroAlunos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroAlunos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
